@@ -1,7 +1,8 @@
-package com.alamin.pillreminder
+package com.alamin.pillreminder.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.alamin.pillreminder.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
