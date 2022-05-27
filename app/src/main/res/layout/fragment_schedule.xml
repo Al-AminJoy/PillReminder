@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.dialog.PillNameDialogFragment">
+    tools:context=".view.fragment.ScheduleFragment">
 
-    <!-- TODO: Pill Name and Unit -->
+    <!-- TODO: Time & Dose, Number of Days, Days (EveryDay,Specific day, Remind Every) -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

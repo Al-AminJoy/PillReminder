@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.alamin.pillreminder.view.fragment.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_pillNameDialogFragment"
+            app:destination="@id/pillNameDialogFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_pillListFragment"
+            app:destination="@id/pillListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pillNameDialogFragment"
+        android:name="com.alamin.pillreminder.view.dialog.PillNameDialogFragment"
+        android:label="Pill Name"
+        tools:layout="@layout/fragment_pill_name_dialog" >
+        <action
+            android:id="@+id/action_pillNameDialogFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pillListFragment"
+        android:name="com.alamin.pillreminder.view.fragment.PillListFragment"
+        android:label="Pills"
+        tools:layout="@layout/fragment_pill_list" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.alamin.pillreminder.view.fragment.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/reminderFragment"
+        android:name="com.alamin.pillreminder.view.fragment.ReminderFragment"
+        android:label="Reminder"
+        tools:layout="@layout/fragment_reminder" >
+        <action
+            android:id="@+id/action_reminderFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_reminderFragment_to_pillNameDialogFragment"
+            app:destination="@id/pillNameDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.alamin.pillreminder.view.fragment.ScheduleFragment"
+        android:label="Schedule"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_scheduleFragment_to_pillStockFragment"
+            app:destination="@id/pillStockFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pillStockFragment"
+        android:name="com.alamin.pillreminder.view.fragment.PillStockFragment"
+        android:label="Stock"
+        tools:layout="@layout/fragment_pill_stock" >
+        <action
+            android:id="@+id/action_pillStockFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+    </fragment>
 </navigation>

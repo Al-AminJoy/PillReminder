@@ -4,10 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/fragment_create_pill.xml" value="0.35260416666666666" />
-        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/fragment_pill_name_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/fragment_pill_name_dialog.xml" value="0.1" />
         <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/fragment_profile.xml" value="0.35260416666666666" />
-        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/menu/menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/fragment_reminder.xml" value="0.1" />
+        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/fragment_schedule.xml" value="0.1" />
+        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/layout_header.xml" value="0.1" />
+        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/menu/menu.xml" value="0.31216931216931215" />
       </map>
     </option>
   </component>
