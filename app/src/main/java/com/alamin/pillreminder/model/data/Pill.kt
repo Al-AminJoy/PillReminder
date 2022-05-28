@@ -12,7 +12,7 @@ import kotlinx.android.parcel.RawValue
 data class Pill(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val pillName: String,
+    var pillName: String,
     val pillUnit: String,
     val pillStartTime: String,
     val isContinuous: Boolean,

@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
 
+        <import type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="nextClickListener"
+            type="OnClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,6 +74,7 @@
             android:layout_marginTop="@dimen/app_margin"
             android:layout_marginBottom="@dimen/app_margin"
             android:text="Next"
+            android:onClick="@{nextClickListener}"
             android:textAllCaps="false"
             app:rippleColor="@color/theme_light"
             app:backgroundTint="@color/theme_color"

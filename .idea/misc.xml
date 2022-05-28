@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/drawable/dialog_background.xml" value="0.1" />
+        <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/drawable/dialog_background_inset.xml" value="0.1" />
         <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/IMPORTANT/All PROJECTS/Android/PillReminder/app/src/main/res/layout/fragment_create_pill.xml" value="0.35260416666666666" />
