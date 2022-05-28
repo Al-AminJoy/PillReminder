@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.fragment.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    
-</FrameLayout>
+    <data>
+
+        <import type="android.view.View.OnClickListener"/>
+        <variable
+            name="floatingClickListener"
+            type="OnClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragment.HomeFragment">
+
+        <View
+            android:id="@+id/viewHomeBottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/theme_color"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{floatingClickListener}"
+            android:src="@drawable/ic_add"
+            app:tint="@color/white"
+            app:borderWidth="@dimen/dimen2dp"
+            app:backgroundTint="@color/white"
+            android:backgroundTint="@color/theme_fourth"
+            app:layout_constraintBottom_toTopOf="@id/viewHomeBottom"
+            app:layout_constraintTop_toTopOf="@id/viewHomeBottom"
+            android:layout_marginEnd="@dimen/app_margin"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

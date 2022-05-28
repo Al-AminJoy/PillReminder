@@ -5,7 +5,12 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="theme_color">@color/Deep_Sky_Blue</color>
+    <color name="theme_color">#00BBF9</color>
+    <color name="theme_light">#BF00BBF9</color>
+    <color name="theme_secondary">#00F5D4</color>
+    <color name="theme_third">#9B5DE5</color>
+    <color name="theme_fourth">#F15BB5</color>
+    <color name="theme_fifth">#FEE440</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

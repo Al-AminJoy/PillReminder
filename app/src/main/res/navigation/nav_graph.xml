@@ -19,7 +19,7 @@
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/pillNameDialogFragment"
         android:name="com.alamin.pillreminder.view.dialog.PillNameDialogFragment"
         android:label="Pill Name"
@@ -27,7 +27,7 @@
         <action
             android:id="@+id/action_pillNameDialogFragment_to_reminderFragment"
             app:destination="@id/reminderFragment" />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/pillListFragment"
         android:name="com.alamin.pillreminder.view.fragment.PillListFragment"
@@ -47,8 +47,8 @@
             android:id="@+id/action_reminderFragment_to_scheduleFragment"
             app:destination="@id/scheduleFragment" />
         <action
-            android:id="@+id/action_reminderFragment_to_pillNameDialogFragment"
-            app:destination="@id/pillNameDialogFragment" />
+            android:id="@+id/action_reminderFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
