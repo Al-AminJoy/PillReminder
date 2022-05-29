@@ -16,10 +16,6 @@
             name="unitClickListener"
             type="OnClickListener" />
 
-     <!--   <variable
-            name="continuous"
-            type="Boolean" />-->
-
         <variable
             name="pillViewModel"
             type="PillViewModel" />

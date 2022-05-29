@@ -24,10 +24,9 @@
         android:name="com.alamin.pillreminder.view.dialog.PillNameDialogFragment"
         android:label="Pill Name"
         tools:layout="@layout/fragment_pill_name_dialog" >
-
         <action
-            android:id="@+id/action_pillNameDialogFragment_to_reminderFragment"
-            app:destination="@id/reminderFragment" />
+            android:id="@+id/action_pillNameDialogFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
     </dialog>
     <fragment
         android:id="@+id/pillListFragment"
@@ -44,10 +43,10 @@
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/reminderFragment"
-        android:name="com.alamin.pillreminder.view.fragment.ReminderFragment"
-        android:label="Reminder"
-        tools:layout="@layout/fragment_reminder" >
+        android:id="@+id/scheduleFragment"
+        android:name="com.alamin.pillreminder.view.fragment.ScheduleFragment"
+        android:label="Schedule"
+        tools:layout="@layout/fragment_schedule" >
 
         <argument android:name="name"
             app:argType="string" />
@@ -55,24 +54,19 @@
         <argument android:name="unit"
             app:argType="string"/>
 
-        <action
-            android:id="@+id/action_reminderFragment_to_scheduleFragment"
-            app:destination="@id/scheduleFragment" />
-        <action
-            android:id="@+id/action_reminderFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/scheduleFragment"
-        android:name="com.alamin.pillreminder.view.fragment.ScheduleFragment"
-        android:label="Schedule"
-        tools:layout="@layout/fragment_schedule" >
+        <argument android:name="days"
+            app:argType="integer" />
+
+        <argument android:name="continuous"
+            app:argType="boolean"/>
+
         <action
             android:id="@+id/action_scheduleFragment_to_pillStockFragment"
             app:destination="@id/pillStockFragment" />
         <action
-            android:id="@+id/action_scheduleFragment_to_reminderFragment"
-            app:destination="@id/reminderFragment" />
+            android:id="@+id/action_scheduleFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/pillStockFragment"
@@ -82,5 +76,8 @@
         <action
             android:id="@+id/action_pillStockFragment_to_scheduleFragment"
             app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_pillStockFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

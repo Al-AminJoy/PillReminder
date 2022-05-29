@@ -5,8 +5,10 @@ import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -59,18 +61,31 @@ class PillNameDialogFragment : DialogFragment() {
         pillViewModel.setContinuous(isContinuous)
         binding.pillViewModel = pillViewModel
         binding.lifecycleOwner = this;
+        
         setUnitAdapter();
 
         binding.setNextClickListener {
             val pillName = binding.txtPillName.text.toString()
             val pillUnit = binding.txtUnit.text.toString()
             if (pillName.isNotEmpty() && pillUnit.isNotEmpty()){
-                var action = PillNameDialogFragmentDirections.actionPillNameDialogFragmentToReminderFragment(pillName,pillUnit)
-                findNavController().navigate(action)
+                if (isContinuous){
+                    days = 0;
+                    goNext(pillName,pillUnit,days,isContinuous)
+                }else  {
+                    if (binding.txtDays.text.toString().isNotEmpty()){
+                        days = binding.txtDays.text.toString().toInt()
+                        goNext(pillName,pillUnit,days,isContinuous)
+                    } else{
+                        Toast.makeText(requireContext(),"Please Set Day",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else{
+                Toast.makeText(requireContext(),"Please Enter Medicine Name & Unit",Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.setUnitClickListener {
+            it.hideKeyboard()
             binding.txtUnit.showDropDown()
         }
 
@@ -88,6 +103,16 @@ class PillNameDialogFragment : DialogFragment() {
             }
         }
         return binding.root;
+    }
+
+    private fun goNext(pillName: String, pillUnit: String, days: Int, continuous: Boolean) {
+        var action = PillNameDialogFragmentDirections.actionPillNameDialogFragmentToScheduleFragment(pillName,pillUnit,days,continuous)
+        findNavController().navigate(action)
+    }
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
     private fun setUnitAdapter() {

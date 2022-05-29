@@ -11,7 +11,6 @@ import com.alamin.pillreminder.R
 
 private const val TAG = "ReminderFragment"
 class ReminderFragment : Fragment() {
-    private val args by navArgs<ReminderFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
