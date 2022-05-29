@@ -5,10 +5,24 @@
     <data>
 
         <import type="android.view.View.OnClickListener"/>
+        <import type="android.view.View"/>
+        <import type="com.alamin.pillreminder.view_model.PillViewModel"/>
 
         <variable
             name="nextClickListener"
             type="OnClickListener" />
+
+        <variable
+            name="unitClickListener"
+            type="OnClickListener" />
+
+     <!--   <variable
+            name="continuous"
+            type="Boolean" />-->
+
+        <variable
+            name="pillViewModel"
+            type="PillViewModel" />
 
     </data>
 
@@ -38,8 +52,8 @@
                 android:inputType="text"
                 android:maxLength="32"
                 android:singleLine="true"
-                android:textColor="@color/DarkGray"
-                android:textCursorDrawable="@color/DarkGray"
+                android:textColor="@color/Ash_Gray"
+                android:textCursorDrawable="@color/Ash_Gray"
                 android:textSize="@dimen/textSizeM" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -62,7 +76,74 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/app_margin"
+                android:textColor="@color/Ash_Gray"
+                android:focusable="false"
+                android:onClick="@{unitClickListener}"
                 />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txtDurationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Medicine Duration"
+            android:gravity="start"
+            android:textSize="@dimen/textSizeM"
+            android:layout_marginTop="@dimen/app_margin"
+            android:textColor="@color/Ash_Gray"
+            app:layout_constraintTop_toBottomOf="@id/layoutUnit"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/app_margin"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/txtDurationTitle">
+
+            <RadioButton
+                android:id="@+id/btnContinuous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Continuous"/>
+
+             <RadioButton
+                android:id="@+id/btnNumberOfDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Number of Days"/>
+
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_margin"
+            app:layout_constraintTop_toBottomOf="@id/radioGroupSchedule"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="Days"
+            app:hintTextColor="@color/theme_color"
+            app:boxStrokeColor="@color/theme_color"
+            android:visibility="@{pillViewModel.isContinuous? View.GONE: View.VISIBLE}"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtDays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/app_margin"
+                android:textColor="@color/Ash_Gray"
+                android:inputType="number"
+                android:maxLength="3"
+                android:textCursorDrawable="@color/Ash_Gray" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -70,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutUnit"
+            app:layout_constraintTop_toBottomOf="@id/layoutDays"
             android:layout_marginTop="@dimen/app_margin"
             android:layout_marginBottom="@dimen/app_margin"
             android:text="Next"

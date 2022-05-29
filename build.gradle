@@ -7,16 +7,16 @@ buildscript {
     }
     dependencies {
         // Navigation Component
-        def nav_version = "2.3.5"
-        classpath "com.android.tools.build:gradle:4.1.0"
+        def nav_version = '2.4.1'
+        classpath 'com.android.tools.build:gradle:7.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         //SafeArgs
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }
 plugins {
-    id 'com.android.application' version '7.1.2' apply false
-    id 'com.android.library' version '7.1.2' apply false
+    id 'com.android.application' version '7.2.0' apply false
+    id 'com.android.library' version '7.2.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
 }
 

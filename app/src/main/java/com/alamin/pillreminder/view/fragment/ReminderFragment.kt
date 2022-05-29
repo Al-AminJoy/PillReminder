@@ -16,7 +16,6 @@ class ReminderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d(TAG, "onCreateView: "+args.name + " "+args.unit)
         return inflater.inflate(R.layout.fragment_reminder, container, false)
     }
 
