@@ -67,14 +67,15 @@ class PillNameDialogFragment : DialogFragment() {
         binding.setNextClickListener {
             val pillName = binding.txtPillName.text.toString()
             val pillUnit = binding.txtUnit.text.toString()
-            if (pillName.isNotEmpty() && pillUnit.isNotEmpty()){
+            val frequency = binding.txtTakingTime.text.toString()
+            if (pillName.isNotEmpty() && pillUnit.isNotEmpty() && frequency.isNotEmpty()){
                 if (isContinuous){
                     days = 0;
-                    goNext(pillName,pillUnit,days,isContinuous)
+                    goNext(pillName,pillUnit,frequency,days,isContinuous)
                 }else  {
                     if (binding.txtDays.text.toString().isNotEmpty()){
                         days = binding.txtDays.text.toString().toInt()
-                        goNext(pillName,pillUnit,days,isContinuous)
+                        goNext(pillName,pillUnit,frequency,days,isContinuous)
                     } else{
                         Toast.makeText(requireContext(),"Please Set Day",Toast.LENGTH_SHORT).show()
                     }
@@ -105,8 +106,8 @@ class PillNameDialogFragment : DialogFragment() {
         return binding.root;
     }
 
-    private fun goNext(pillName: String, pillUnit: String, days: Int, continuous: Boolean) {
-        var action = PillNameDialogFragmentDirections.actionPillNameDialogFragmentToScheduleFragment(pillName,pillUnit,days,continuous)
+    private fun goNext(pillName: String, pillUnit: String,frequency: String, days: Int, continuous: Boolean) {
+        var action = PillNameDialogFragmentDirections.actionPillNameDialogFragmentToScheduleFragment(pillName,pillUnit,frequency,days,continuous)
         findNavController().navigate(action)
     }
 
@@ -116,8 +117,7 @@ class PillNameDialogFragment : DialogFragment() {
     }
 
     private fun setUnitAdapter() {
-        val dataUtils = DataUtils();
-        val items = dataUtils.pillTypes();
+        val items = DataUtils.pillTypes();
         val adapter = ArrayAdapter(requireContext(),R.layout.list_item,R.id.txtItems,items)
         binding.txtUnit.setAdapter(adapter)
     }

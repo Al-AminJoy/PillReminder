@@ -54,6 +54,8 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutUnit"
             android:layout_width="match_parent"
@@ -74,8 +76,36 @@
                 android:padding="@dimen/app_margin"
                 android:textColor="@color/Ash_Gray"
                 android:focusable="false"
+                android:drawableEnd="@drawable/ic_arrow_drop_down"
                 android:onClick="@{unitClickListener}"
                 />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutTakingTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutUnit"
+            android:layout_marginTop="@dimen/app_margin"
+            android:background="@color/white"
+            android:hint="Taking Time In A Day"
+            app:boxStrokeColor="@color/theme_color"
+            app:hintTextColor="@color/theme_color"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtTakingTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="2"
+                android:singleLine="true"
+                android:textCursorDrawable="@color/Ash_Gray"
+                android:textColor="@color/Ash_Gray"
+                android:textSize="@dimen/textSizeM"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -89,7 +119,7 @@
             android:textSize="@dimen/textSizeM"
             android:layout_marginTop="@dimen/app_margin"
             android:textColor="@color/Ash_Gray"
-            app:layout_constraintTop_toBottomOf="@id/layoutUnit"/>
+            app:layout_constraintTop_toBottomOf="@id/layoutTakingTime"/>
 
         <RadioGroup
             android:id="@+id/radioGroupSchedule"
