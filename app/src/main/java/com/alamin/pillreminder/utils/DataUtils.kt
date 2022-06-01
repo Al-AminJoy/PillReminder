@@ -40,32 +40,32 @@ class DataUtils {
             return pillTimes;
         }
 
-        fun pillDosages(unit: String): List<String> {
+        fun pillDosages(): List<String> {
             var pillDosages = ArrayList<String>()
-            pillDosages.add("0.5 $unit");
-            pillDosages.add("1 $unit")
-            pillDosages.add("1.5 $unit")
-            pillDosages.add("2 $unit")
-            pillDosages.add("2.5 $unit")
-            pillDosages.add("3 $unit")
-            pillDosages.add("3.5 $unit")
-            pillDosages.add("4 $unit")
-            pillDosages.add("4.5 $unit")
-            pillDosages.add("5 $unit")
-            pillDosages.add("5.5 $unit")
-            pillDosages.add("6 $unit")
-            pillDosages.add("6.5 $unit")
-            pillDosages.add("7 $unit")
-            pillDosages.add("7.5 $unit")
-            pillDosages.add("8 $unit")
-            pillDosages.add("8.5 $unit")
-            pillDosages.add("9 $unit")
-            pillDosages.add("9.5 $unit")
-            pillDosages.add("10 $unit")
-            pillDosages.add("10.5 $unit")
-            pillDosages.add("11 $unit")
-            pillDosages.add("11.5 $unit")
-            pillDosages.add("12 $unit")
+            pillDosages.add("0.5");
+            pillDosages.add("1")
+            pillDosages.add("1.5")
+            pillDosages.add("2")
+            pillDosages.add("2.5")
+            pillDosages.add("3")
+            pillDosages.add("3.5")
+            pillDosages.add("4")
+            pillDosages.add("4.5")
+            pillDosages.add("5")
+            pillDosages.add("5.5")
+            pillDosages.add("6")
+            pillDosages.add("6.5")
+            pillDosages.add("7")
+            pillDosages.add("7.5")
+            pillDosages.add("8")
+            pillDosages.add("8.5")
+            pillDosages.add("9")
+            pillDosages.add("9.5")
+            pillDosages.add("10")
+            pillDosages.add("10.5")
+            pillDosages.add("11")
+            pillDosages.add("11.5")
+            pillDosages.add("12")
             return pillDosages;
         }
     }

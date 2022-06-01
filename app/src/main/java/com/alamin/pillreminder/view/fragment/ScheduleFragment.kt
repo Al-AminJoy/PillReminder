@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.navigation.fragment.navArgs
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentScheduleBinding
@@ -25,6 +22,16 @@ class ScheduleFragment : Fragment() {
     ): View? {
         binding = FragmentScheduleBinding.inflate(layoutInflater)
 
+        binding.setOnEveryDayClick {
+            Toast.makeText(requireContext(), "EveryDay", Toast.LENGTH_SHORT).show()
+        }
+        binding.setOnSpecificDayClick {
+            Toast.makeText(requireContext(), "SpecificDay", Toast.LENGTH_SHORT).show()
+        }
+        binding.setOnEveryClick {
+            Toast.makeText(requireContext(), "Every", Toast.LENGTH_SHORT).show()
+        }
+
         showInfo()
 
         return binding.root
@@ -39,13 +46,15 @@ class ScheduleFragment : Fragment() {
             var txtTime: AutoCompleteTextView = view.findViewById(R.id.txtTime)
             var txtDosage: AutoCompleteTextView = view.findViewById(R.id.txtDosages)
             var txtDosageTitle: TextView = view.findViewById(R.id.txtDosageTitle)
+            var txtMedicineUnit: TextView = view.findViewById(R.id.txtMedicineUnit)
 
             txtDosageTitle.text = "Dosage : ${item+1}"
+            txtMedicineUnit.text = "${arg.unit}(s)"
 
             txtDosage.setOnClickListener {
                 txtDosage.showDropDown()
             }
-            val  dosagesAdapter = ArrayAdapter(requireContext(),R.layout.list_item,R.id.txtItems,DataUtils.pillDosages(arg.unit))
+            val  dosagesAdapter = ArrayAdapter(requireContext(),R.layout.list_item,R.id.txtItems,DataUtils.pillDosages())
             txtDosage.setAdapter(dosagesAdapter)
 
             txtTime.setOnClickListener {

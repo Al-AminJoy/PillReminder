@@ -90,19 +90,16 @@ class PillNameDialogFragment : DialogFragment() {
             binding.txtUnit.showDropDown()
         }
 
-        binding.radioGroupSchedule.setOnCheckedChangeListener { group, checkedId ->
-            run {
-                when (checkedId) {
-                    R.id.btnContinuous -> {
-                        isContinuous = true
-                    }
-                    R.id.btnNumberOfDays -> {
-                        isContinuous = false;
-                    }
-                }
-                pillViewModel.setContinuous(isContinuous)
-            }
+        binding.setContinuousClickListener {
+            isContinuous = true
+            pillViewModel.setContinuous(isContinuous)
         }
+
+        binding.setNumberOfDaysClickListener {
+            isContinuous = false;
+            pillViewModel.setContinuous(isContinuous)
+        }
+
         return binding.root;
     }
 

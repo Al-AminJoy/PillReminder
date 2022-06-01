@@ -20,6 +20,14 @@
             name="pillViewModel"
             type="PillViewModel" />
 
+        <variable
+            name="continuousClickListener"
+            type="OnClickListener" />
+
+        <variable
+            name="numberOfDaysClickListener"
+            type="OnClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -132,6 +140,7 @@
 
             <RadioButton
                 android:id="@+id/btnContinuous"
+                android:onClick="@{continuousClickListener}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -139,6 +148,7 @@
 
              <RadioButton
                 android:id="@+id/btnNumberOfDays"
+                 android:onClick="@{numberOfDaysClickListener}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Number of Days"/>

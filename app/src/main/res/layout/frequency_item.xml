@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/box_pink_layout"
+    android:background="@drawable/box_theme_layout"
     android:padding="@dimen/app_margin">
 
    <TextView
@@ -14,7 +14,7 @@
        android:text="Dosage : 1 "
        android:paddingStart="0dp"
        android:textSize="@dimen/textSizeM"
-       android:textColor="@color/theme_color"
+       android:textColor="@color/white"
        android:padding="@dimen/app_margin"/>
 
    <AutoCompleteTextView
@@ -25,60 +25,39 @@
        android:textColor="@color/Ash_Gray"
        android:focusable="false"
        android:hint="Taking Time"
-       android:background="@drawable/box_theme_layout"
+       android:background="@drawable/box_pink_layout"
        android:drawableEnd="@drawable/ic_arrow_drop_down"
        />
 
-   <AutoCompleteTextView
-       android:id="@+id/txtDosages"
-       android:hint="Quantity"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:padding="@dimen/app_margin"
-       android:layout_marginTop="@dimen/app_margin"
-       android:textColor="@color/Ash_Gray"
-       android:focusable="false"
-       android:background="@drawable/box_theme_layout"
-       android:drawableEnd="@drawable/ic_arrow_drop_down"
-       />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginTop="@dimen/app_margin"
+      android:gravity="center">
+     <AutoCompleteTextView
+         android:id="@+id/txtDosages"
+         android:hint="Quantity"
+         android:layout_width="0dp"
+         android:layout_weight=".7"
+         android:layout_height="wrap_content"
+         android:padding="@dimen/app_margin"
+         android:textColor="@color/Ash_Gray"
+         android:focusable="false"
+         android:background="@drawable/box_pink_layout"
+         android:drawableEnd="@drawable/ic_arrow_drop_down"
+         />
+     <TextView
+         android:id="@+id/txtMedicineUnit"
+         android:layout_width="0dp"
+         android:layout_weight=".3"
+         android:layout_height="wrap_content"
+         android:padding="@dimen/app_margin"
+         android:text="Pills"
+         android:gravity="start"
+         android:textColor="@color/white"
+         />
+  </LinearLayout>
 
-  <!-- <com.google.android.material.textfield.TextInputLayout
-       android:id="@+id/layoutTime"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-       android:hint="Time"
-       app:hintTextColor="@color/theme_color"
-       app:boxStrokeColor="@color/theme_color"
-       >
-     &lt;!&ndash; <AutoCompleteTextView
-          android:id="@+id/txtTime"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="@dimen/app_margin"
-          android:textColor="@color/Ash_Gray"
-          android:focusable="false"
-          />&ndash;&gt;
-   </com.google.android.material.textfield.TextInputLayout>
--->
-  <!-- <com.google.android.material.textfield.TextInputLayout
-       android:id="@+id/layoutDosages"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="@dimen/app_margin"
-       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-       android:hint="Dosages"
-       app:hintTextColor="@color/theme_color"
-       app:boxStrokeColor="@color/theme_color"
-       >
-     &lt;!&ndash; <AutoCompleteTextView
-          android:id="@+id/txtDosages"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="@dimen/app_margin"
-          android:textColor="@color/Ash_Gray"
-          android:focusable="false"
-          />&ndash;&gt;
-   </com.google.android.material.textfield.TextInputLayout>-->
 
 </LinearLayout>
