@@ -1,16 +1,19 @@
 package com.alamin.pillreminder.view.fragment
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentScheduleBinding
+import com.alamin.pillreminder.databinding.NumberPickerLayoutBinding
 import com.alamin.pillreminder.utils.DataUtils
+
 
 private const val TAG = "ScheduleFragment"
 class ScheduleFragment : Fragment() {
@@ -29,7 +32,19 @@ class ScheduleFragment : Fragment() {
             Toast.makeText(requireContext(), "SpecificDay", Toast.LENGTH_SHORT).show()
         }
         binding.setOnEveryClick {
-            Toast.makeText(requireContext(), "Every", Toast.LENGTH_SHORT).show()
+            val alertDialog = Dialog(requireContext())
+            val dialogBinding = NumberPickerLayoutBinding.inflate(LayoutInflater.from(requireContext()))
+            dialogBinding.numberPicker.minValue = 2
+            dialogBinding.numberPicker.maxValue = 15
+            dialogBinding.setOnNumberChange { numberPicker, oldValue, newValue ->
+                run {
+                    val text = "Changed from " + oldValue.toString() + " to " + newValue
+                    Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+
+                }
+            }
+            alertDialog.setContentView(dialogBinding.root)
+            alertDialog.show()
         }
 
         showInfo()
