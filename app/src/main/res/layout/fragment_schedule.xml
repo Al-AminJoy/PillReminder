@@ -5,6 +5,7 @@
     <data>
 
         <import type="android.view.View.OnClickListener"/>
+        <import type="android.view.View"/>
 
         <variable
             name="onEveryDayClick"
@@ -15,7 +16,9 @@
         <variable
             name="onEveryClick"
             type="OnClickListener" />
-
+        <variable
+            name="isEvery"
+            type="Boolean" />
     </data>
 
     <ScrollView
@@ -40,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/app_margin">
+                android:padding="@dimen/app_margin">
 
                 <RadioGroup
                     android:id="@+id/radioGroupDays"
@@ -65,7 +68,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Every"/>
+                    <TextView
+                        android:id="@+id/txtDays"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{isEvery ? View.VISIBLE : View.GONE}"
+                        android:text="Days"
+                        android:textColor="@color/Ash_Gray"
+                        />
                 </RadioGroup>
+
+
 
             </LinearLayout>
 

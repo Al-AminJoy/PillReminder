@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -24,6 +25,8 @@ class ScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentScheduleBinding.inflate(layoutInflater)
+        binding.isEvery = false
+
 
         binding.setOnEveryDayClick {
             Toast.makeText(requireContext(), "EveryDay", Toast.LENGTH_SHORT).show()
@@ -38,19 +41,29 @@ class ScheduleFragment : Fragment() {
             dialogBinding.numberPicker.maxValue = 15
             dialogBinding.setOnNumberChange { numberPicker, oldValue, newValue ->
                 run {
-                    val text = "Changed from " + oldValue.toString() + " to " + newValue
-                    Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
-
+                    binding.txtDays.text = "$newValue Day's"
+                    binding.isEvery = true;
                 }
             }
+            dialogBinding.setOnNumberSubmit {
+                binding.txtDays.text = "${dialogBinding.numberPicker.value} Day's"
+                binding.isEvery = true;
+                alertDialog.dismiss()
+
+            }
             alertDialog.setContentView(dialogBinding.root)
+            alertDialog.setCancelable(false)
             alertDialog.show()
+            val window: Window? = alertDialog.window
+            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
 
         showInfo()
 
         return binding.root
     }
+
+
     private fun showInfo(){
         val layoutInflater: LayoutInflater= requireContext().applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
