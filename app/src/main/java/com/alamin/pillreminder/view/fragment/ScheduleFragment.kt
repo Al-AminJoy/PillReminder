@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentScheduleBinding
 import com.alamin.pillreminder.databinding.NumberPickerLayoutBinding
+import com.alamin.pillreminder.databinding.SpecificDayLayoutBinding
 import com.alamin.pillreminder.utils.DataUtils
 
 
@@ -20,6 +21,7 @@ private const val TAG = "ScheduleFragment"
 class ScheduleFragment : Fragment() {
     private lateinit var binding: FragmentScheduleBinding
     private val arg by navArgs<ScheduleFragmentArgs>()
+    private var dayList : MutableList<String> = ArrayList();
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +34,38 @@ class ScheduleFragment : Fragment() {
             Toast.makeText(requireContext(), "EveryDay", Toast.LENGTH_SHORT).show()
         }
         binding.setOnSpecificDayClick {
-            Toast.makeText(requireContext(), "SpecificDay", Toast.LENGTH_SHORT).show()
+            binding.isEvery = false
+            val dialog = Dialog(requireContext())
+            val dialogBinding = SpecificDayLayoutBinding.inflate(LayoutInflater.from(requireContext()))
+            dialogBinding.setOnSubmit {
+                if (dialogBinding.checkSaturday.isChecked){
+                    dayList.add("Saturday")
+                }
+                if (dialogBinding.checkSunday.isChecked){
+                dayList.add("Sunday") }
+                if (dialogBinding.checkMonday.isChecked){
+                    dayList.add("Monday")
+                }
+                if (dialogBinding.checkTuesday.isChecked){
+                    dayList.add("Tuesday") }
+
+                if (dialogBinding.checkWednesday.isChecked){
+                    dayList.add("Wednesday")
+                }
+                if (dialogBinding.checkTuesday.isChecked){
+                    dayList.add("Thursday") }
+                if (dialogBinding.checkFriday.isChecked){
+                    dayList.add("Friday")
+                }
+                dialog.dismiss();
+
+            }
+            dialog.setContentView(dialogBinding.root)
+            dialog.setCancelable(false)
+            dialog.show()
+            val window = dialog.window
+            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+
         }
         binding.setOnEveryClick {
             val alertDialog = Dialog(requireContext())

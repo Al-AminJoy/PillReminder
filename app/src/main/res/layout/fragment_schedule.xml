@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/app_margin">
+                
 
                 <RadioGroup
                     android:id="@+id/radioGroupDays"
