@@ -1,13 +1,16 @@
 package com.alamin.pillreminder.view.dialog
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.opengl.Visibility
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +22,8 @@ import com.alamin.pillreminder.utils.DataUtils
 import com.alamin.pillreminder.utils.PillCreator
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 private const val TAG = "PillNameDialogFragment"
@@ -32,6 +37,8 @@ class PillNameDialogFragment : DialogFragment() {
     private lateinit var binding: FragmentPillNameDialogBinding
     private var isContinuous: Boolean = true;
     private var days = 0;
+
+    private var calender: Calendar = Calendar.getInstance();
 
     override fun onStart() {
         super.onStart()
@@ -100,7 +107,33 @@ class PillNameDialogFragment : DialogFragment() {
             pillViewModel.setContinuous(isContinuous)
         }
 
+        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            calender.set(Calendar.YEAR,year)
+            calender.set(Calendar.MONTH,monthOfYear)
+            calender.set(Calendar.DAY_OF_MONTH,dayOfMonth)
+            Log.d(TAG, "onCreateView: ${calender.get(Calendar.DAY_OF_MONTH)} ${calender.get(Calendar.MONTH)} ${calender.get(Calendar.YEAR)} ")
+            updateDateInView()
+        }
+
+        binding.setStartClickListener {
+            DatePickerDialog(requireContext(),
+            dateSetListener,
+            calender.get(Calendar.YEAR),
+            calender.get(Calendar.MONTH),
+            calender.get(Calendar.DAY_OF_MONTH))
+                .show()
+
+        }
+
         return binding.root;
+    }
+
+    private fun updateDateInView() {
+        var day = calender.get(Calendar.DAY_OF_MONTH)
+        var month: Int = calender.get(Calendar.MONTH)
+        var year: Int = calender.get(Calendar.YEAR)
+        val  date = "$day/$month/$year"
+        binding.txtStartDate.text = Editable.Factory.getInstance().newEditable(date)
     }
 
     private fun goNext(pillName: String, pillUnit: String,frequency: String, days: Int, continuous: Boolean) {

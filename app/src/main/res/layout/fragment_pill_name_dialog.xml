@@ -21,6 +21,10 @@
             type="PillViewModel" />
 
         <variable
+            name="startClickListener"
+            type="OnClickListener" />
+
+        <variable
             name="continuousClickListener"
             type="OnClickListener" />
 
@@ -116,6 +120,33 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutStartTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTakingTime"
+            android:layout_marginTop="@dimen/app_margin"
+            android:background="@color/white"
+            android:hint="Start Date"
+            app:boxStrokeColor="@color/theme_color"
+            app:hintTextColor="@color/theme_color"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:focusable="false"
+                android:onClick="@{startClickListener}"
+                android:textCursorDrawable="@color/Ash_Gray"
+                android:textColor="@color/Ash_Gray"
+                android:textSize="@dimen/textSizeM"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/txtDurationTitle"
             android:layout_width="match_parent"
@@ -127,7 +158,7 @@
             android:textSize="@dimen/textSizeM"
             android:layout_marginTop="@dimen/app_margin"
             android:textColor="@color/Ash_Gray"
-            app:layout_constraintTop_toBottomOf="@id/layoutTakingTime"/>
+            app:layout_constraintTop_toBottomOf="@id/layoutStartTime"/>
 
         <RadioGroup
             android:id="@+id/radioGroupSchedule"

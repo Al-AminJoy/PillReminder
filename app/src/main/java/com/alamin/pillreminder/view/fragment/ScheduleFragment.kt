@@ -21,7 +21,7 @@ private const val TAG = "ScheduleFragment"
 class ScheduleFragment : Fragment() {
     private lateinit var binding: FragmentScheduleBinding
     private val arg by navArgs<ScheduleFragmentArgs>()
-    private var dayList : MutableList<String> = ArrayList();
+    private var dayList : ArrayList<String> = arrayListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,22 +40,44 @@ class ScheduleFragment : Fragment() {
             dialogBinding.setOnSubmit {
                 if (dialogBinding.checkSaturday.isChecked){
                     dayList.add("Saturday")
+                }else{
+                    dayList.remove("Saturday");
                 }
+
                 if (dialogBinding.checkSunday.isChecked){
-                dayList.add("Sunday") }
+                dayList.add("Sunday")
+                }else{
+                    dayList.remove("Sunday");
+                }
+
                 if (dialogBinding.checkMonday.isChecked){
                     dayList.add("Monday")
+                }else{
+                    dayList.remove("Monday");
                 }
+
                 if (dialogBinding.checkTuesday.isChecked){
-                    dayList.add("Tuesday") }
+                    dayList.add("Tuesday")
+                }else{
+                    dayList.remove("Tuesday");
+                }
 
                 if (dialogBinding.checkWednesday.isChecked){
                     dayList.add("Wednesday")
+                }else{
+                    dayList.remove("Wednesday");
                 }
+
                 if (dialogBinding.checkTuesday.isChecked){
-                    dayList.add("Thursday") }
+                    dayList.add("Thursday")
+                }else{
+                    dayList.remove("Thursday");
+                }
+
                 if (dialogBinding.checkFriday.isChecked){
                     dayList.add("Friday")
+                }else{
+                    dayList.remove("Friday");
                 }
                 dialog.dismiss();
 
