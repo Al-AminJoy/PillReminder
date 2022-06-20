@@ -104,7 +104,6 @@ class ScheduleFragment : Fragment() {
                 binding.txtDays.text = "${dialogBinding.numberPicker.value} Day's"
                 binding.isEvery = true;
                 alertDialog.dismiss()
-
             }
             alertDialog.setContentView(dialogBinding.root)
             alertDialog.setCancelable(false)

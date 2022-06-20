@@ -54,6 +54,9 @@
         <argument android:name="unit"
             app:argType="string"/>
 
+        <argument android:name="startDate"
+            app:argType="string"/>
+
         <argument android:name="frequency"
             app:argType="string"/>
 

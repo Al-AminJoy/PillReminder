@@ -74,15 +74,16 @@ class PillNameDialogFragment : DialogFragment() {
         binding.setNextClickListener {
             val pillName = binding.txtPillName.text.toString()
             val pillUnit = binding.txtUnit.text.toString()
+            val pillDate = binding.txtStartDate.text.toString()
             val frequency = binding.txtTakingTime.text.toString()
-            if (pillName.isNotEmpty() && pillUnit.isNotEmpty() && frequency.isNotEmpty()){
+            if (pillName.isNotEmpty() && pillUnit.isNotEmpty() && frequency.isNotEmpty() && pillDate.isNotEmpty()){
                 if (isContinuous){
                     days = 0;
-                    goNext(pillName,pillUnit,frequency,days,isContinuous)
+                    goNext(pillName,pillUnit,pillDate,frequency,days,isContinuous)
                 }else  {
                     if (binding.txtDays.text.toString().isNotEmpty()){
                         days = binding.txtDays.text.toString().toInt()
-                        goNext(pillName,pillUnit,frequency,days,isContinuous)
+                        goNext(pillName,pillUnit,pillDate,frequency,days,isContinuous)
                     } else{
                         Toast.makeText(requireContext(),"Please Set Day",Toast.LENGTH_SHORT).show()
                     }
@@ -111,7 +112,6 @@ class PillNameDialogFragment : DialogFragment() {
             calender.set(Calendar.YEAR,year)
             calender.set(Calendar.MONTH,monthOfYear)
             calender.set(Calendar.DAY_OF_MONTH,dayOfMonth)
-            Log.d(TAG, "onCreateView: ${calender.get(Calendar.DAY_OF_MONTH)} ${calender.get(Calendar.MONTH)} ${calender.get(Calendar.YEAR)} ")
             updateDateInView()
         }
 
@@ -132,12 +132,12 @@ class PillNameDialogFragment : DialogFragment() {
         var day = calender.get(Calendar.DAY_OF_MONTH)
         var month: Int = calender.get(Calendar.MONTH)
         var year: Int = calender.get(Calendar.YEAR)
-        val  date = "$day/$month/$year"
+        val date = "$day/$month/$year"
         binding.txtStartDate.text = Editable.Factory.getInstance().newEditable(date)
     }
 
-    private fun goNext(pillName: String, pillUnit: String,frequency: String, days: Int, continuous: Boolean) {
-        var action = PillNameDialogFragmentDirections.actionPillNameDialogFragmentToScheduleFragment(pillName,pillUnit,frequency,days,continuous)
+    private fun goNext(pillName: String, pillUnit: String,date: String,frequency: String, days: Int, continuous: Boolean) {
+        var action = PillNameDialogFragmentDirections.actionPillNameDialogFragmentToScheduleFragment(pillName,pillUnit,date,frequency,days,continuous)
         findNavController().navigate(action)
     }
 
