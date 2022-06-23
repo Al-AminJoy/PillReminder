@@ -2,15 +2,12 @@ package com.alamin.pillreminder.view.dialog
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.DatePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,10 +16,8 @@ import com.alamin.pillreminder.PillApplication
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentPillNameDialogBinding
 import com.alamin.pillreminder.utils.DataUtils
-import com.alamin.pillreminder.utils.PillCreator
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -75,14 +70,15 @@ class PillNameDialogFragment : DialogFragment() {
             val pillName = binding.txtPillName.text.toString()
             val pillUnit = binding.txtUnit.text.toString()
             val frequency = binding.txtTakingTime.text.toString()
-            if (pillName.isNotEmpty() && pillUnit.isNotEmpty() && frequency.isNotEmpty()){
+            val startDate = binding.txtStartDate.text.toString()
+            if (pillName.isNotEmpty() && pillUnit.isNotEmpty() && frequency.isNotEmpty() && startDate.isNotEmpty()){
                 if (isContinuous){
                     days = 0;
-                    goNext(pillName,pillUnit,frequency,days,isContinuous)
+                    goNext(pillName,pillUnit,frequency,days,isContinuous,startDate)
                 }else  {
                     if (binding.txtDays.text.toString().isNotEmpty()){
                         days = binding.txtDays.text.toString().toInt()
-                        goNext(pillName,pillUnit,frequency,days,isContinuous)
+                        goNext(pillName,pillUnit,frequency,days,isContinuous,startDate)
                     } else{
                         Toast.makeText(requireContext(),"Please Set Day",Toast.LENGTH_SHORT).show()
                     }
@@ -136,8 +132,15 @@ class PillNameDialogFragment : DialogFragment() {
         binding.txtStartDate.text = Editable.Factory.getInstance().newEditable(date)
     }
 
-    private fun goNext(pillName: String, pillUnit: String,frequency: String, days: Int, continuous: Boolean) {
-        var action = PillNameDialogFragmentDirections.actionPillNameDialogFragmentToScheduleFragment(pillName,pillUnit,frequency,days,continuous)
+    private fun goNext(
+        pillName: String,
+        pillUnit: String,
+        frequency: String,
+        days: Int,
+        continuous: Boolean,
+        startDate: String
+    ) {
+        var action = PillNameDialogFragmentDirections.actionPillNameDialogFragmentToScheduleFragment(pillName,pillUnit,frequency,days,continuous,startDate)
         findNavController().navigate(action)
     }
 

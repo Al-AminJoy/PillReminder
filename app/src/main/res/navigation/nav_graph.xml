@@ -63,6 +63,9 @@
         <argument android:name="continuous"
             app:argType="boolean"/>
 
+        <argument android:name="startDay"
+            app:argType="string"/>
+
         <action
             android:id="@+id/action_scheduleFragment_to_pillStockFragment"
             app:destination="@id/pillStockFragment" />
@@ -76,11 +79,42 @@
         android:name="com.alamin.pillreminder.view.fragment.PillStockFragment"
         android:label="Stock"
         tools:layout="@layout/fragment_pill_stock" >
+        <argument android:name="name"
+            app:argType="string" />
+
+        <argument android:name="unit"
+            app:argType="string"/>
+
+        <argument android:name="days"
+            app:argType="integer" />
+
+        <argument android:name="continuous"
+            app:argType="boolean"/>
+
+        <argument android:name="startDay"
+            app:argType="string"/>
+
         <action
             android:id="@+id/action_pillStockFragment_to_scheduleFragment"
             app:destination="@id/scheduleFragment" />
         <action
             android:id="@+id/action_pillStockFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+
+        <argument
+            android:name="scheduleList"
+            app:argType="com.alamin.pillreminder.model.data.Schedule[]" />
+
+        <argument
+            android:name="isEveryDay"
+            app:argType="boolean" />
+
+        <argument
+            android:name="dayList"
+            app:argType="string[]" />
+        <argument
+            android:name="dayFrequency"
+            app:argType="string" />
+
     </fragment>
 </navigation>

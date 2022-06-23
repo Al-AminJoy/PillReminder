@@ -9,7 +9,7 @@ import com.alamin.pillreminder.model.data.Converters
 import com.alamin.pillreminder.model.data.Pill
 import com.alamin.pillreminder.model.local.dao.PillDao
 
-@Database(entities = [Pill::class], version = 3, exportSchema = true)
+@Database(entities = [Pill::class], version = 4, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun pillDao() : PillDao
