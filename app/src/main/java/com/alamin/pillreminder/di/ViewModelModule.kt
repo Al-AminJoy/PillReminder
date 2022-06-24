@@ -13,5 +13,4 @@ abstract class ViewModelModule {
     @ClassKey(PillViewModel::class)
     @IntoMap
     abstract fun provideUserViewModel(pillViewModel: PillViewModel): ViewModel
-
 }

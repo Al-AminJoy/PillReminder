@@ -18,9 +18,7 @@ data class Pill(
     val isContinuous: Boolean,
     val days: Int,
     val isEveryDay: Boolean,
-    //val dayList: List<String>,
+    val dayHolder: @RawValue DayHolder,
     val dayInterval: Int,
     val scheduleHolder: @RawValue ScheduleHolder,
-    val pillStock: Double,
-    val minimumPillStock: Int
 ) : Parcelable

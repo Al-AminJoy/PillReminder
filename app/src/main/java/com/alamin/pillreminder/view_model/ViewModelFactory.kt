@@ -8,5 +8,4 @@ class ViewModelFactory @Inject constructor(private val map: Map<Class<*>, @JvmSu
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return map[modelClass] as T;
     }
-
 }

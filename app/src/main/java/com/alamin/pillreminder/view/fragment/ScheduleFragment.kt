@@ -10,39 +10,60 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.alamin.pillreminder.PillApplication
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentScheduleBinding
 import com.alamin.pillreminder.databinding.NumberPickerLayoutBinding
 import com.alamin.pillreminder.databinding.SpecificDayLayoutBinding
+import com.alamin.pillreminder.model.data.DayHolder
+import com.alamin.pillreminder.model.data.Pill
 import com.alamin.pillreminder.model.data.Schedule
+import com.alamin.pillreminder.model.data.ScheduleHolder
 import com.alamin.pillreminder.utils.DataUtils
+import com.alamin.pillreminder.view_model.PillViewModel
+import com.alamin.pillreminder.view_model.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
+import javax.inject.Inject
 
 
 private const val TAG = "ScheduleFragment"
 class ScheduleFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory;
+
+    private lateinit var pillViewModel: PillViewModel;
+
     private lateinit var binding: FragmentScheduleBinding
     private val arg by navArgs<ScheduleFragmentArgs>()
     private lateinit var dayList : ArrayList<String>
     private lateinit var views: ArrayList<View>
     private lateinit var scheduleList: ArrayList<Schedule>
     private var isEveryDay: Boolean = true
+    private var isEvery: Boolean = false
+    private var every = 0;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentScheduleBinding.inflate(layoutInflater)
-        binding.isEvery = false
+        binding.isEvery = isEvery
+        val component = (requireActivity().applicationContext as PillApplication).appComponent
+        component.injectSchedule(this);
+        pillViewModel = ViewModelProvider(this,viewModelFactory)[PillViewModel::class.java];
+
         dayList = arrayListOf()
         scheduleList = arrayListOf()
         showInfo()
 
         binding.setOnEveryDayClick {
-            binding.isEvery = false
+            isEvery = false
+            binding.isEvery = isEvery
             isEveryDay = true
             dayList.clear()
             txtDays.text = ""
@@ -50,7 +71,8 @@ class ScheduleFragment : Fragment() {
         binding.setOnSpecificDayClick {
             dayList.clear()
             txtDays.text = ""
-            binding.isEvery = false
+            isEvery = false
+            binding.isEvery = isEvery
             isEveryDay = false
             val dialog = Dialog(requireContext())
             val dialogBinding = SpecificDayLayoutBinding.inflate(LayoutInflater.from(requireContext()))
@@ -122,13 +144,17 @@ class ScheduleFragment : Fragment() {
             dialogBinding.numberPicker.maxValue = 15
             dialogBinding.setOnNumberChange { numberPicker, oldValue, newValue ->
                 run {
-                    binding.txtDays.text = "$newValue Day's"
-                    binding.isEvery = true
+                    every = newValue
+                    binding.txtDays.text = "$every Day's"
+                    isEvery = true
+                    binding.isEvery = isEvery
                 }
             }
             dialogBinding.setOnNumberSubmit {
-                binding.txtDays.text = "${dialogBinding.numberPicker.value} Day's"
-                binding.isEvery = true
+                every = dialogBinding.numberPicker.value
+                binding.txtDays.text = "$every Day's"
+                isEvery = true
+                binding.isEvery = isEvery
                 alertDialog.dismiss()
             }
             alertDialog.setContentView(dialogBinding.root)
@@ -163,21 +189,34 @@ class ScheduleFragment : Fragment() {
                 }
                 scheduleList.add(Schedule(time,dose.toDouble()))
             }
-            Log.d(TAG, "onCreateView: ${scheduleList.size} $scheduleList")
-            Log.d(TAG, "onCreateView:  $dayList")
-            val action = ScheduleFragmentDirections.actionScheduleFragmentToPillStockFragment(arg.name,
-                arg.unit,
-                arg.days,
-                arg.continuous,
-                arg.startDay,
-            scheduleList.toTypedArray(),
-            isEveryDay,
-            dayList.toTypedArray(),
-            binding.txtDays.text.toString())
-            findNavController().navigate(action)
+            val dayHolder = DayHolder(dayList)
+            val scheduleHolder =  ScheduleHolder(scheduleList)
+            if (isEvery){
+                insertPill(arg.name,arg.unit,arg.startDay,arg.continuous,arg.days,isEveryDay,dayHolder,every,scheduleHolder)
+            }else {
+                every = 0
+                insertPill(arg.name,arg.unit,arg.startDay,arg.continuous,arg.days,isEveryDay,dayHolder,every,scheduleHolder)
+            }
+
         }
 
         return binding.root
+    }
+
+    private fun insertPill(
+        name: String,
+        unit: String,
+        startDay: String,
+        continuous: Boolean,
+        days: Int,
+        everyDay: Boolean,
+        dayHolder: DayHolder,
+        every: Int,
+        scheduleHolder: ScheduleHolder
+    ) {
+        val pill = Pill(0,name,unit,startDay,continuous,days,everyDay,dayHolder,every,scheduleHolder)
+        pillViewModel.insertPill(pill)
+        findNavController().navigate(R.id.action_scheduleFragment_to_homeFragment)
     }
 
 

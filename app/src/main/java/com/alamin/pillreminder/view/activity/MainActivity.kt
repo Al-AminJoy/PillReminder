@@ -2,7 +2,6 @@ package com.alamin.pillreminder.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -11,7 +10,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.ActivityMainBinding
 import com.alamin.pillreminder.model.data.Pill
-import com.alamin.pillreminder.utils.PillCreator
 import kotlinx.android.synthetic.main.content_main.view.*
 
 private const val TAG = "MainActivity"

@@ -107,7 +107,6 @@ class PillNameDialogFragment : DialogFragment() {
             calender.set(Calendar.YEAR,year)
             calender.set(Calendar.MONTH,monthOfYear)
             calender.set(Calendar.DAY_OF_MONTH,dayOfMonth)
-            Log.d(TAG, "onCreateView: ${calender.get(Calendar.DAY_OF_MONTH)} ${calender.get(Calendar.MONTH)} ${calender.get(Calendar.YEAR)} ")
             updateDateInView()
         }
 

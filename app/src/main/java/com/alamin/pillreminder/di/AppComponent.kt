@@ -18,8 +18,6 @@ interface AppComponent {
 
     fun injectProfile(profileFragment: ProfileFragment)
 
-    fun injectPillStock(pillStockFragment: PillStockFragment)
-
     fun injectPillList(pillListFragment: PillListFragment)
 
     fun injectRemind(reminderFragment: ReminderFragment)
