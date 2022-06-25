@@ -43,4 +43,5 @@ class PillAdapter @Inject constructor(private val pillDiffUtils: PillDiffUtils) 
         pillList = newPillList
         diffResult.dispatchUpdatesTo(this)
     }
+
 }

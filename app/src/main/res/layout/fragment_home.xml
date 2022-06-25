@@ -15,7 +15,45 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/theme_background"
         tools:context=".view.fragment.HomeFragment">
+
+        <TextView
+            android:id="@+id/txtUpcoming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upcoming \n Medicines !"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/textSizeL"
+            android:textColor="@color/theme_fifth"
+            android:padding="@dimen/app_margin"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txtToday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Today's \n Medicines !"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtUpcoming"
+            android:textSize="@dimen/textSizeL"
+            android:textColor="@color/theme_fifth"
+            android:paddingHorizontal="@dimen/app_margin"
+            android:layout_marginTop="@dimen/app_margin"
+            android:textStyle="bold"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtToday"
+            tools:listitem="@layout/row_today_pill"
+            app:layout_constraintBottom_toTopOf="@id/viewHomeBottom"
+            android:padding="@dimen/app_margin"/>
 
         <View
             android:id="@+id/viewHomeBottom"

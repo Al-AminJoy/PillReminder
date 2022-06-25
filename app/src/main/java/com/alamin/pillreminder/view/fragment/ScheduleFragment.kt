@@ -27,7 +27,11 @@ import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 private const val TAG = "ScheduleFragment"
@@ -191,11 +195,20 @@ class ScheduleFragment : Fragment() {
             }
             val dayHolder = DayHolder(dayList)
             val scheduleHolder =  ScheduleHolder(scheduleList)
+            val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+            var startTime: Long = 0
+            try {
+                val date = simpleDateFormat.parse(arg.startDay)
+                startTime = date.time;
+            }catch (e: Exception){
+
+            }
+
             if (isEvery){
-                insertPill(arg.name,arg.unit,arg.startDay,arg.continuous,arg.days,isEveryDay,dayHolder,every,scheduleHolder)
+                insertPill(arg.name,arg.unit,startTime,arg.continuous,arg.days,isEveryDay,dayHolder,every,scheduleHolder)
             }else {
                 every = 0
-                insertPill(arg.name,arg.unit,arg.startDay,arg.continuous,arg.days,isEveryDay,dayHolder,every,scheduleHolder)
+                insertPill(arg.name,arg.unit,startTime,arg.continuous,arg.days,isEveryDay,dayHolder,every,scheduleHolder)
             }
 
         }
@@ -206,7 +219,7 @@ class ScheduleFragment : Fragment() {
     private fun insertPill(
         name: String,
         unit: String,
-        startDay: String,
+        startDay: Long,
         continuous: Boolean,
         days: Int,
         everyDay: Boolean,

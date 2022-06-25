@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.alamin.pillreminder.model.data.RecentSchedule"/>
+        <variable
+            name="schedule"
+            type="RecentSchedule" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="@dimen/app_margin"
+            app:cardElevation="@dimen/dimen2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/app_margin">
+                <ImageView
+                    android:id="@+id/imgPill"
+                    android:layout_width="@dimen/dimen32dp"
+                    android:layout_height="@dimen/dimen32dp"
+                    android:src="@drawable/tablet"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toEndOf="@id/imgPill"
+                    app:layout_constraintTop_toTopOf="@id/txtPillName"
+                    app:layout_constraintBottom_toBottomOf="@id/txtMeal"
+                    android:layout_marginStart="@dimen/margin12dp"
+                    android:background="@color/DarkGray"/>
+
+                <TextView
+                    android:id="@+id/txtPillName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/view"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="@dimen/textSizeL"
+                    android:paddingHorizontal="@dimen/app_margin"
+                    android:text="@{schedule.pillName}"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/txtPillUnitAndTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/view"
+                    app:layout_constraintTop_toBottomOf="@id/txtPillName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="@dimen/textSizeM"
+                    android:paddingHorizontal="@dimen/app_margin"
+                    android:layout_marginTop="@dimen/app_margin"
+                    android:text="@{@string/pill_time(schedule.unit,schedule.pillUnit,schedule.time)}"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/txtMeal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/view"
+                    app:layout_constraintTop_toBottomOf="@id/txtPillUnitAndTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="@dimen/textSizeM"
+                    android:padding="@dimen/app_margin"
+                    android:layout_marginTop="@dimen/app_margin"
+                    android:text="After Meal"
+                    android:gravity="center"
+                    android:background="@drawable/round_corner_fill_text_background"
+                    android:textColor="@color/white" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -18,6 +18,7 @@ import com.alamin.pillreminder.databinding.FragmentPillNameDialogBinding
 import com.alamin.pillreminder.utils.DataUtils
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -127,7 +128,8 @@ class PillNameDialogFragment : DialogFragment() {
         var day = calender.get(Calendar.DAY_OF_MONTH)
         var month: Int = calender.get(Calendar.MONTH)
         var year: Int = calender.get(Calendar.YEAR)
-        val  date = "$day/$month/$year"
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val  date = simpleDateFormat.format(calender.time)
         binding.txtStartDate.text = Editable.Factory.getInstance().newEditable(date)
     }
 
