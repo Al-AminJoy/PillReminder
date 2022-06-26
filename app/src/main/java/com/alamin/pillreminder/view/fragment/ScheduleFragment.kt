@@ -1,8 +1,11 @@
 package com.alamin.pillreminder.view.fragment
 
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +28,7 @@ import com.alamin.pillreminder.model.data.ScheduleHolder
 import com.alamin.pillreminder.utils.DataUtils
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import java.lang.Exception
@@ -173,7 +177,7 @@ class ScheduleFragment : Fragment() {
             scheduleList.clear()
             for (item in views){
                 val txtTime: AutoCompleteTextView = item.findViewById(R.id.txtTime)
-                val txtDosage: AutoCompleteTextView = item.findViewById(R.id.txtDosages)
+                val txtDosage: EditText = item.findViewById(R.id.txtDosages)
                 txtTime.error = null
                 txtDosage.error = null
 
@@ -216,6 +220,7 @@ class ScheduleFragment : Fragment() {
         return binding.root
     }
 
+
     private fun insertPill(
         name: String,
         unit: String,
@@ -234,32 +239,66 @@ class ScheduleFragment : Fragment() {
 
 
     private fun showInfo(){
-        val layoutInflater: LayoutInflater= requireContext().applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val layoutInflater: LayoutInflater= requireActivity().applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
          views = arrayListOf()
 
         for (item in 0 until arg.frequency.toInt()){
            val view: View = layoutInflater.inflate(R.layout.frequency_item, null)
             var txtTime: AutoCompleteTextView = view.findViewById(R.id.txtTime)
-            var txtDosage: AutoCompleteTextView = view.findViewById(R.id.txtDosages)
+            var txtDosage: EditText = view.findViewById(R.id.txtDosages)
             var txtDosageTitle: TextView = view.findViewById(R.id.txtDosageTitle)
             var txtMedicineUnit: TextView = view.findViewById(R.id.txtMedicineUnit)
 
             txtDosageTitle.text = "Dosage : ${item+1}"
             txtMedicineUnit.text = "${arg.unit}(s)"
 
-            txtDosage.setOnClickListener {
+            /*txtDosage.setOnClickListener {
                 txtDosage.showDropDown()
-            }
-            val  dosagesAdapter = ArrayAdapter(requireContext(),R.layout.list_item,R.id.txtItems,DataUtils.pillDosages())
-            txtDosage.setAdapter(dosagesAdapter)
+            }*/
+
+            val timePickerDialogListener: TimePickerDialog.OnTimeSetListener =
+                TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+                    val formattedtime: String = when{
+                        hour == 0 ->{
+                            if (minute < 10){
+                                "$hour:0$minute AM"
+                            }else{
+                                "$hour:$minute AM"
+                            }
+                        }
+
+                        hour > 12 ->{
+                            if (minute < 10){
+                                "${hour-12}:0$minute PM"
+                            }else{
+                                "${hour-12}:$minute PM"
+                            }
+                        }
+
+                        hour == 12 ->{
+                            if (minute < 10){
+                                "$hour:0$minute PM"
+                            }else{
+                                "$hour:$minute PM"
+                            }
+                        }
+
+                        else-> {
+                            if (minute < 10){
+                                "$hour:0$minute AM"
+                            }else{
+                                "$hour:$minute AM"
+                            }
+                        }
+                    }
+                    txtTime.text  = Editable.Factory.getInstance().newEditable(formattedtime)
+                }
 
             txtTime.setOnClickListener {
-                txtTime.showDropDown()
+                val timePicker: TimePickerDialog = TimePickerDialog(requireContext(),timePickerDialogListener,12,10,false)
+                timePicker.show()
             }
-            val  timeAdapter = ArrayAdapter(requireContext(),R.layout.list_item,R.id.txtItems,DataUtils.pillTimes())
-            txtTime.setAdapter(timeAdapter)
-
 
             var layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -277,4 +316,6 @@ class ScheduleFragment : Fragment() {
         }
 
     }
+
+
 }

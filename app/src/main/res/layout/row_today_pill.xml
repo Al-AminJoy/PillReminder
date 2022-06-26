@@ -87,7 +87,7 @@
                     android:layout_marginTop="@dimen/app_margin"
                     android:text="After Meal"
                     android:gravity="center"
-                    android:background="@drawable/round_corner_fill_text_background"
+                    android:background="@drawable/round_corner_fill_background"
                     android:textColor="@color/white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

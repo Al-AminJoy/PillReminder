@@ -24,9 +24,11 @@
        android:padding="@dimen/app_margin"
        android:textColor="@color/Ash_Gray"
        android:focusable="false"
+       android:clickable="false"
+       android:longClickable="false"
        android:hint="Taking Time"
-       android:background="@drawable/box_pink_layout"
-       android:drawableEnd="@drawable/ic_arrow_drop_down"
+       android:background="@drawable/round_corner_fill_background"
+       android:backgroundTint="@color/white"
        />
 
   <LinearLayout
@@ -35,18 +37,23 @@
       android:orientation="horizontal"
       android:layout_marginTop="@dimen/app_margin"
       android:gravity="center">
-     <AutoCompleteTextView
-         android:id="@+id/txtDosages"
-         android:hint="Quantity"
-         android:layout_width="0dp"
-         android:layout_weight=".7"
-         android:layout_height="wrap_content"
-         android:padding="@dimen/app_margin"
-         android:textColor="@color/Ash_Gray"
-         android:focusable="false"
-         android:background="@drawable/box_pink_layout"
-         android:drawableEnd="@drawable/ic_arrow_drop_down"
-         />
+
+      <EditText
+          android:id="@+id/txtDosages"
+          android:layout_width="0dp"
+          android:layout_weight=".7"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/app_margin"
+          android:inputType="numberDecimal"
+          android:maxLength="4"
+          android:hint="Quantity"
+          android:singleLine="true"
+          android:background="@drawable/round_corner_fill_background"
+          android:backgroundTint="@color/white"
+          android:textColor="@color/Ash_Gray"
+          />
+
+
      <TextView
          android:id="@+id/txtMedicineUnit"
          android:layout_width="0dp"

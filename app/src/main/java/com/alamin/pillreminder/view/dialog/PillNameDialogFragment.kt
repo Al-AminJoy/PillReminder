@@ -1,6 +1,7 @@
 package com.alamin.pillreminder.view.dialog
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -124,10 +126,8 @@ class PillNameDialogFragment : DialogFragment() {
         return binding.root;
     }
 
+
     private fun updateDateInView() {
-        var day = calender.get(Calendar.DAY_OF_MONTH)
-        var month: Int = calender.get(Calendar.MONTH)
-        var year: Int = calender.get(Calendar.YEAR)
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
         val  date = simpleDateFormat.format(calender.time)
         binding.txtStartDate.text = Editable.Factory.getInstance().newEditable(date)
