@@ -4,11 +4,17 @@ class DataUtils {
     companion object{
         fun pillTypes (): List<String> {
             var pillTypes = ArrayList<String>()
-            pillTypes.add("Tablet");
+           /* pillTypes.add("Tablet");
             pillTypes.add("Capsule")
             pillTypes.add("Syrup")
             pillTypes.add("Injection")
-            pillTypes.add("Eye Drops")
+            pillTypes.add("Eye Drops")*/
+            pillTypes.add("Tablet");
+            pillTypes.add("Capsule")
+            pillTypes.add("Drop")
+            pillTypes.add("Cup")
+            pillTypes.add("mg")
+            pillTypes.add("ml")
             return pillTypes;
         }
 

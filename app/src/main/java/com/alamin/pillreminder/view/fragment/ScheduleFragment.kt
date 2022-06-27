@@ -246,25 +246,20 @@ class ScheduleFragment : Fragment() {
         for (item in 0 until arg.frequency.toInt()){
            val view: View = layoutInflater.inflate(R.layout.frequency_item, null)
             var txtTime: AutoCompleteTextView = view.findViewById(R.id.txtTime)
-            var txtDosage: EditText = view.findViewById(R.id.txtDosages)
             var txtDosageTitle: TextView = view.findViewById(R.id.txtDosageTitle)
             var txtMedicineUnit: TextView = view.findViewById(R.id.txtMedicineUnit)
 
             txtDosageTitle.text = "Dosage : ${item+1}"
             txtMedicineUnit.text = "${arg.unit}(s)"
 
-            /*txtDosage.setOnClickListener {
-                txtDosage.showDropDown()
-            }*/
-
             val timePickerDialogListener: TimePickerDialog.OnTimeSetListener =
                 TimePickerDialog.OnTimeSetListener { view, hour, minute ->
                     val formattedtime: String = when{
                         hour == 0 ->{
                             if (minute < 10){
-                                "$hour:0$minute AM"
+                                "12:0$minute AM"
                             }else{
-                                "$hour:$minute AM"
+                                "12:$minute AM"
                             }
                         }
 
