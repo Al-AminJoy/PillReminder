@@ -4,10 +4,10 @@
 
     <data>
 
-        <import type="com.alamin.pillreminder.model.data.Pill"/>
+        <import type="com.alamin.pillreminder.model.data.RecentSchedule"/>
         <variable
-            name="pill"
-            type="Pill" />
+            name="schedule"
+            type="RecentSchedule" />
 
     </data>
 
@@ -44,7 +44,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintStart_toEndOf="@id/imgPill"
                     app:layout_constraintTop_toTopOf="@id/txtPillName"
-                    app:layout_constraintBottom_toBottomOf="@id/txtPillUnitAndTime"
+                    app:layout_constraintBottom_toBottomOf="@id/txtMeal"
                     android:layout_marginStart="@dimen/margin12dp"
                     android:background="@color/DarkGray"/>
 
@@ -57,7 +57,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:textSize="@dimen/textSizeL"
                     android:paddingHorizontal="@dimen/app_margin"
-                    android:text="@{pill.pillName}"
+                    android:text="@{schedule.pillName}"
                     android:gravity="center"
                     android:textColor="@color/black" />
 
@@ -71,11 +71,11 @@
                     android:textSize="@dimen/textSizeM"
                     android:paddingHorizontal="@dimen/app_margin"
                     android:layout_marginTop="@dimen/app_margin"
-                    android:text="Pill unit And Time"
+                    android:text="@{@string/pill_time(schedule.unit,schedule.pillUnit,schedule.time)}"
                     android:gravity="center"
                     android:textColor="@color/black" />
 
-               <!-- <TextView
+                <TextView
                     android:id="@+id/txtMeal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     android:text="After Meal"
                     android:gravity="center"
                     android:background="@drawable/round_corner_fill_background"
-                    android:textColor="@color/white" />-->
+                    android:textColor="@color/white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,24 +1,24 @@
 package com.alamin.pillreminder.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alamin.pillreminder.databinding.RowTodayPillBinding
-import com.alamin.pillreminder.model.data.RecentSchedule
+import com.alamin.pillreminder.model.data.Pill
 import javax.inject.Inject
 
-private const val TAG = "TodayPillAdapter"
-class TodayPillAdapter @Inject constructor(private val recentPillDiffUtils: RecentPillDiffUtils):
+class TodayPillAdapter @Inject constructor(val pillDiffUtils: PillDiffUtils):
     RecyclerView.Adapter<TodayPillAdapter.TodayPillViewHolder>(){
 
-    private var pillList : List<RecentSchedule> = arrayListOf()
+    private var pillList: List<Pill> = arrayListOf()
 
-    inner class TodayPillViewHolder(val binding: RowTodayPillBinding): RecyclerView.ViewHolder(binding.root) {
-        fun binding(recentSchedule: RecentSchedule){
-            binding.schedule = recentSchedule
+    inner class TodayPillViewHolder(private val binding: RowTodayPillBinding): RecyclerView.ViewHolder(binding.root) {
+
+        fun binding(pill: Pill){
+            binding.pill = pill
         }
+
     }
 
     override fun onCreateViewHolder(
@@ -34,17 +34,13 @@ class TodayPillAdapter @Inject constructor(private val recentPillDiffUtils: Rece
     }
 
     override fun getItemCount(): Int {
-        Log.d(TAG, "getItemCount: ${pillList.size}")
-       return pillList.size
+        return pillList.size
     }
 
-    fun setData(newPillList: List<RecentSchedule>){
-        Log.d(TAG, "New List: ${pillList.size}")
-
-        recentPillDiffUtils.setList(pillList,newPillList)
-        val diffResult = DiffUtil.calculateDiff(recentPillDiffUtils)
+    fun setData(newPillList: List<Pill>){
+        pillDiffUtils.setList(pillList,newPillList)
+        val diffResult = DiffUtil.calculateDiff(pillDiffUtils)
         pillList = newPillList
         diffResult.dispatchUpdatesTo(this)
     }
-
 }

@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alamin.pillreminder.PillApplication
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentHomeBinding
+import com.alamin.pillreminder.model.data.Pill
 import com.alamin.pillreminder.model.data.RecentSchedule
+import com.alamin.pillreminder.view.adapter.RecentPillAdapter
 import com.alamin.pillreminder.view.adapter.TodayPillAdapter
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
@@ -26,6 +28,8 @@ class HomeFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+    @Inject
+    lateinit var recentPillAdapter: RecentPillAdapter
     @Inject
     lateinit var todayPillAdapter: TodayPillAdapter
     private lateinit var pillViewModel: PillViewModel
@@ -46,40 +50,74 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = todayPillAdapter
         }
+//For Recent Pill
+/*        for (pill in it){
+            for (schedule in pill.scheduleHolder.scheduleList){
+                var pillTime = schedule.time.substring(0,5).split(":")
 
-        var todayPillList = arrayListOf<RecentSchedule>()
+                var hourInMilliSec = 0
+                var minuteInMilliSec = 0
+
+                if (schedule.time.contains("PM")){
+                    hourInMilliSec = (pillTime[0].trim().toInt()+12) * 3600000
+                    minuteInMilliSec = pillTime[1].trim().toInt() * 60000
+                }else{
+                    hourInMilliSec = (pillTime[0].trim().toInt()) * 3600000
+                    minuteInMilliSec = (pillTime[1].trim().toInt()) * 60000
+                }
+
+                val pillTakingTime = hourInMilliSec+minuteInMilliSec
+
+                val calender = Calendar.getInstance()
+                val hour = calender.get(Calendar.HOUR_OF_DAY)
+                val minute = calender.get(Calendar.MINUTE)
+                val currentTimeInMilliSec = hour*3600000 + minute*60000
+                Log.d(TAG, "onCreateView: ${pillTakingTime}")
+
+                if (pillTakingTime-currentTimeInMilliSec in 1..1800000){
+                    recentPillList.add(RecentSchedule(pill.id,pill.pillName,pill.pillUnit,schedule.time,schedule.unit))
+                }
+            }
+        }*/
+
+        var todayPillList = arrayListOf<Pill>()
         pillViewModel.getAllPill().observe(requireActivity(), Observer {
             todayPillList.clear()
 
             for (pill in it){
-                for (schedule in pill.scheduleHolder.scheduleList){
-                    var pillTime = schedule.time.substring(0,5).split(":")
-
-                    var hourInMilliSec = 0
-                    var minuteInMilliSec = 0
-
-                    if (schedule.time.contains("PM")){
-                        hourInMilliSec = (pillTime[0].trim().toInt()+12) * 3600000
-                        minuteInMilliSec = pillTime[1].trim().toInt() * 60000
-                    }else{
-                        hourInMilliSec = (pillTime[0].trim().toInt()) * 3600000
-                        minuteInMilliSec = (pillTime[1].trim().toInt()) * 60000
-                    }
-
-                    val pillTakingTime = hourInMilliSec+minuteInMilliSec
-
-                    val calender = Calendar.getInstance()
-                    val hour = calender.get(Calendar.HOUR_OF_DAY)
-                    val minute = calender.get(Calendar.MINUTE)
-                    val currentTimeInMilliSec = hour*3600000 + minute*60000
-                    Log.d(TAG, "onCreateView: ${pillTakingTime}")
-
-                    if (pillTakingTime-currentTimeInMilliSec in 1..1800000){
-                        todayPillList.add(RecentSchedule(pill.id,pill.pillName,pill.pillUnit,schedule.time,schedule.unit))
-                    }
+                var currentDay = 0;
+                var currentMonth = 0;
+                var currentYear = 0;
+                var startDay = 0;
+                var startMonth = 0;
+                var startYear = 0;
+                val currentTime = System.currentTimeMillis()
+                val calendar = Calendar.getInstance()
+                calendar.timeInMillis = currentTime
+                with(calendar){
+                    currentDay = get(Calendar.DAY_OF_MONTH)
+                    currentMonth = get(Calendar.MONTH)
+                    currentYear = get(Calendar.YEAR)
                 }
+
+                calendar.timeInMillis = pill.pillStartTime
+
+                with(calendar){
+                    startDay = get(Calendar.DAY_OF_MONTH)
+                    startMonth = get(Calendar.MONTH)
+                    startYear = get(Calendar.YEAR)
+                }
+
+               if (currentDay >= startDay && currentMonth>= startMonth && currentYear>= startYear){
+                   if (pill.isContinuous){
+                       todayPillList.add(pill)
+                   }else {
+
+                   }
+               }
+
             }
-            Log.d(TAG, "onCreateView: ${todayPillList}")
+           // Log.d(TAG, "onCreateView: ${todayPillList}")
             todayPillAdapter.setData(todayPillList)
         })
 

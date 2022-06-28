@@ -51,7 +51,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtToday"
-            tools:listitem="@layout/row_today_pill"
+            tools:listitem="@layout/row_recent_pill"
             app:layout_constraintBottom_toTopOf="@id/viewHomeBottom"
             android:padding="@dimen/app_margin"/>
 
