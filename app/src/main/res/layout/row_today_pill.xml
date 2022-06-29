@@ -71,7 +71,8 @@
                     android:textSize="@dimen/textSizeM"
                     android:paddingHorizontal="@dimen/app_margin"
                     android:layout_marginTop="@dimen/app_margin"
-                    android:text="Pill unit And Time"
+                    unit="@{pill.pillUnit}"
+                    showSchedules="@{pill.scheduleHolder.scheduleList}"
                     android:gravity="center"
                     android:textColor="@color/black" />
 

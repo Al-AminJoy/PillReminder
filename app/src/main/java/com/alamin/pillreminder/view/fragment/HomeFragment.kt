@@ -112,7 +112,9 @@ class HomeFragment : Fragment() {
                    if (pill.isContinuous){
                        todayPillList.add(pill)
                    }else {
-
+                       if ((startDay+pill.days) - currentDay in 1..pill.days){
+                           todayPillList.add(pill)
+                       }
                    }
                }
 
