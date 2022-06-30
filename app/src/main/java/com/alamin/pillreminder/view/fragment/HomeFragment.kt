@@ -2,10 +2,10 @@ package com.alamin.pillreminder.view.fragment
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,12 +14,12 @@ import com.alamin.pillreminder.PillApplication
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentHomeBinding
 import com.alamin.pillreminder.model.data.Pill
-import com.alamin.pillreminder.model.data.RecentSchedule
 import com.alamin.pillreminder.view.adapter.RecentPillAdapter
 import com.alamin.pillreminder.view.adapter.TodayPillAdapter
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
-import java.sql.Date
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
@@ -86,6 +86,7 @@ class HomeFragment : Fragment() {
 
             for (pill in it){
                 var currentDay = 0;
+                var currentDayofWeek = 0;
                 var currentMonth = 0;
                 var currentYear = 0;
                 var startDay = 0;
@@ -96,6 +97,7 @@ class HomeFragment : Fragment() {
                 calendar.timeInMillis = currentTime
                 with(calendar){
                     currentDay = get(Calendar.DAY_OF_MONTH)
+                    currentDayofWeek = get(Calendar.DAY_OF_WEEK)
                     currentMonth = get(Calendar.MONTH)
                     currentYear = get(Calendar.YEAR)
                 }
@@ -108,13 +110,11 @@ class HomeFragment : Fragment() {
                     startYear = get(Calendar.YEAR)
                 }
 
-               if (currentDay >= startDay && currentMonth>= startMonth && currentYear>= startYear){
+               if (currentTime >= pill.pillStartTime){
                    if (pill.isContinuous){
-                       todayPillList.add(pill)
+                       filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
                    }else {
-                       if ((startDay+pill.days) - currentDay in 1..pill.days){
-                           todayPillList.add(pill)
-                       }
+                       filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
                    }
                }
 
@@ -128,6 +128,46 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_pillNameDialogFragment)
         }
         return binding.root
+    }
+
+    private fun filterPill(
+        todayPillList: ArrayList<Pill>,
+        pill: Pill,
+        currentDayofWeek: Int,
+        startDay: Int,
+        currentDay: Int
+    ) {
+        if (pill.isEveryDay){
+            todayPillList.add(pill)
+        }else if (pill.dayHolder.dayList.isNotEmpty()){
+            val currentDayName: String = dateName(currentDayofWeek);
+            for (day in pill.dayHolder.dayList){
+                if (day == currentDayName){
+                    todayPillList.add(pill)
+                    break
+                }
+            }
+
+        }else{
+            if (currentDay-startDay == 0){
+                todayPillList.add(pill)
+            }else if ((currentDay-startDay) % pill.dayInterval == 0){
+                todayPillList.add(pill)
+            }
+        }
+    }
+
+    private fun dateName(currentDayofWeek: Int): String {
+       return when(currentDayofWeek){
+            1 -> "Sunday"
+            2 -> "Monday"
+            3 -> "Tuesday"
+            4 -> "Wednesday"
+            5 -> "Thursday"
+            6 -> "Friday"
+           else -> "Saturday"
+        }
+
     }
 
 }
