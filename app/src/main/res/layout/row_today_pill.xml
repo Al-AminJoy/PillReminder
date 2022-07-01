@@ -76,20 +76,6 @@
                     android:gravity="center"
                     android:textColor="@color/black" />
 
-               <!-- <TextView
-                    android:id="@+id/txtMeal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/view"
-                    app:layout_constraintTop_toBottomOf="@id/txtPillUnitAndTime"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textSize="@dimen/textSizeM"
-                    android:padding="@dimen/app_margin"
-                    android:layout_marginTop="@dimen/app_margin"
-                    android:text="After Meal"
-                    android:gravity="center"
-                    android:background="@drawable/round_corner_fill_background"
-                    android:textColor="@color/white" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

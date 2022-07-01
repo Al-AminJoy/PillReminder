@@ -18,18 +18,51 @@
         android:background="@color/theme_background"
         tools:context=".view.fragment.HomeFragment">
 
-        <TextView
-            android:id="@+id/txtUpcoming"
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardRecentPill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upcoming \n Medicines !"
+            android:layout_margin="@dimen/app_margin"
+            app:cardCornerRadius="@dimen/app_margin"
+            app:cardElevation="@dimen/dimen2dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textSize="@dimen/textSizeL"
-            android:textColor="@color/theme_fifth"
-            android:padding="@dimen/app_margin"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+            app:cardBackgroundColor="@color/theme_color">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/txtRecentPill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSizeM"
+                    android:text="Recent Medicines"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/app_margin"
+                    android:padding="@dimen/app_margin"
+                    android:gravity="center"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewRecentPill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtRecentPill"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/row_recent_pill"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/txtToday"
@@ -37,7 +70,7 @@
             android:layout_height="wrap_content"
             android:text="Today's \n Medicines !"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtUpcoming"
+            app:layout_constraintTop_toBottomOf="@id/cardRecentPill"
             android:textSize="@dimen/textSizeL"
             android:textColor="@color/theme_fifth"
             android:paddingHorizontal="@dimen/app_margin"
@@ -51,7 +84,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtToday"
-            tools:listitem="@layout/row_recent_pill"
+            tools:listitem="@layout/row_today_pill"
             app:layout_constraintBottom_toTopOf="@id/viewHomeBottom"
             android:padding="@dimen/app_margin"/>
 
