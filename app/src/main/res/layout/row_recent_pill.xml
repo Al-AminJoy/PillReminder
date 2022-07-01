@@ -33,7 +33,7 @@
                     android:id="@+id/imgPill"
                     android:layout_width="@dimen/dimen24dp"
                     android:layout_height="@dimen/dimen24dp"
-                    android:src="@drawable/tablet"
+                    showPillIcon="@{schedule.pillType}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>

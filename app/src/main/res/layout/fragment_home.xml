@@ -39,12 +39,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/textSizeM"
-                    android:text="Recent Medicines"
+                    android:text="Recent Medicine(s)"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="@dimen/app_margin"
                     android:padding="@dimen/app_margin"
                     android:gravity="center"/>
 

@@ -66,6 +66,9 @@
         <argument android:name="startDay"
             app:argType="string"/>
 
+        <argument android:name="pillType"
+            app:argType="string"/>
+
         <action
             android:id="@+id/action_scheduleFragment_to_homeFragment"
             app:destination="@id/homeFragment"

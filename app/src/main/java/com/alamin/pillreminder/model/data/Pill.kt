@@ -13,6 +13,7 @@ data class Pill(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     var pillName: String,
+    var pillType: String,
     val pillUnit: String,
     val pillStartTime: Long,
     val isContinuous: Boolean,

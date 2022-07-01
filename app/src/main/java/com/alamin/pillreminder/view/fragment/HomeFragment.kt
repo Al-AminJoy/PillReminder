@@ -93,8 +93,13 @@ class HomeFragment : Fragment() {
                }
 
             }
-            todayPillAdapter.setData(todayPillList)
-            setRecentPillData(todayPillList)
+            if (todayPillList.size <= 0){
+                binding.txtToday.text = "Woo !! No Pill in Today"
+                binding.cardRecentPill.visibility = View.GONE
+            }else{
+                todayPillAdapter.setData(todayPillList)
+                setRecentPillData(todayPillList)
+            }
         })
 
 
@@ -105,6 +110,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setRecentPillData(todayPillList: ArrayList<Pill>) {
+        if (todayPillList.size <= 0){
+            binding.txtRecentPill.text = "Woo !! No Recent Pill"
+        }
         var recentPillList = arrayListOf<RecentSchedule>()
         for (pill in todayPillList){
             for (schedule in pill.scheduleHolder.scheduleList){
@@ -144,7 +152,7 @@ class HomeFragment : Fragment() {
                 val minute = calender.get(Calendar.MINUTE)
                 val currentTimeInMilliSec = hour*3600000 + minute*60000
                 if (pillTakingTime-currentTimeInMilliSec in 1..1800000){
-                    recentPillList.add(RecentSchedule(pill.id,pill.pillName,pill.pillUnit,schedule.time,schedule.unit))
+                    recentPillList.add(RecentSchedule(pill.id,pill.pillName,pill.pillType,pill.pillUnit,schedule.time,schedule.unit))
                 }
             }
         }
