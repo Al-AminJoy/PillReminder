@@ -4,9 +4,13 @@
 
     <data>
         <import type="com.alamin.pillreminder.model.data.Pill"/>
+        <import type="com.alamin.pillreminder.view.adapter.OnPillListClickListener"/>
         <variable
             name="pill"
             type="Pill" />
+        <variable
+            name="onPillClick"
+            type="OnPillListClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,15 +26,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:cardCornerRadius="@dimen/app_margin"
             android:layout_margin="@dimen/app_margin"
-            app:cardElevation="@dimen/dimen2dp">
+            app:cardElevation="@dimen/dimen2dp"
+            android:onClick="@{()->onPillClick.onClick(pill)}">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/app_margin">
                 <ImageView
                     android:id="@+id/imgPill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dimen32dp"
+                    android:layout_height="@dimen/dimen32dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

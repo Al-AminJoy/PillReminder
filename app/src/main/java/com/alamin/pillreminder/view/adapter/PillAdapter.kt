@@ -15,11 +15,13 @@ class PillAdapter @Inject constructor(private val pillDiffUtils: PillDiffUtils) 
     RecyclerView.Adapter<PillAdapter.PillViewHolder>(){
 
     private var pillList: List<Pill> = arrayListOf()
+    private var onPillListClickListener: OnPillListClickListener? = null
 
     inner class PillViewHolder (val binding: RowPillItemBinding) :
     RecyclerView.ViewHolder(binding.root){
         fun binding(pill: Pill){
             binding.pill = pill
+            binding.onPillClick = onPillListClickListener
         }
     }
 
@@ -42,6 +44,10 @@ class PillAdapter @Inject constructor(private val pillDiffUtils: PillDiffUtils) 
         val diffResult = DiffUtil.calculateDiff(pillDiffUtils)
         pillList = newPillList
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun setOnClickListener(onPillListClickListener: OnPillListClickListener){
+        this.onPillListClickListener = onPillListClickListener
     }
 
 }

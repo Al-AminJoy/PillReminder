@@ -23,7 +23,7 @@ fun TextView.showSchedules(schedules: List<Schedule>,unit: String) {
 fun ImageView.showPillIcon(unit: String){
     when(unit){
         "Tablet" -> this.setImageDrawable(resources.getDrawable(R.drawable.tablet,null))
-        "Capsule" -> this.setImageDrawable(resources.getDrawable(R.drawable.capsul,null))
+        "Capsule" -> this.setImageDrawable(resources.getDrawable(R.drawable.capsule,null))
         "Syrup" -> this.setImageDrawable(resources.getDrawable(R.drawable.syrup,null))
         "Injection" -> this.setImageDrawable(resources.getDrawable(R.drawable.injection,null))
         else -> this.setImageDrawable(resources.getDrawable(R.drawable.eye_drops,null))

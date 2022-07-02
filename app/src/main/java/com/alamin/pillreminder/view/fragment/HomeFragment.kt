@@ -110,9 +110,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setRecentPillData(todayPillList: ArrayList<Pill>) {
-        if (todayPillList.size <= 0){
-            binding.txtRecentPill.text = "Woo !! No Recent Pill"
-        }
         var recentPillList = arrayListOf<RecentSchedule>()
         for (pill in todayPillList){
             for (schedule in pill.scheduleHolder.scheduleList){
@@ -156,7 +153,12 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        recentPillAdapter.setData(recentPillList);
+
+        if (recentPillList.size <= 0){
+            binding.txtRecentPill.text = "Woo !! No Upcoming Pill"
+        }else{
+            recentPillAdapter.setData(recentPillList);
+        }
     }
 
     private fun filterPill(

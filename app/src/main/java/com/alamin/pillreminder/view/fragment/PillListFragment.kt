@@ -8,11 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alamin.pillreminder.PillApplication
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentPillListBinding
+import com.alamin.pillreminder.model.data.Pill
+import com.alamin.pillreminder.view.adapter.OnPillListClickListener
 import com.alamin.pillreminder.view.adapter.PillAdapter
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
@@ -46,7 +50,16 @@ class PillListFragment : Fragment() {
         }
 
         pillViewModel.getAllPill().observe(requireActivity(), Observer {
-            pillAdapter.setData(it);
+            with(pillAdapter){
+                setData(it);
+                setOnClickListener(object : OnPillListClickListener{
+                    override fun onClick(pill: Pill) {
+                        val component = PillListFragmentDirections.actionPillListFragmentToPillDetailsFragment(pill)
+                        findNavController().navigate(component)
+                    }
+
+                })
+            }
         })
 
 

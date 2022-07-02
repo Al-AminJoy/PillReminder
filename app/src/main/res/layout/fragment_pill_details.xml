@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.alamin.pillreminder.model.data.Pill"/>
+        <variable
+            name="pill"
+            type="Pill" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragment.PillDetailsFragment">
+
+        <ImageView
+            android:id="@+id/imgPill"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:padding="@dimen/app_margin"
+            android:layout_margin="@dimen/app_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            showPillIcon="@{pill.pillType}" />
+
+        <TextView
+            android:id="@+id/txtPillNameTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/imgPill"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Pill Name"
+            android:textColor="@color/gray"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/app_margin"
+            android:textSize="@dimen/textSizeL"/>
+        <TextView
+            android:id="@+id/txtPillName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/imgPill"
+            app:layout_constraintTop_toBottomOf="@id/txtPillNameTitle"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            android:text="@{pill.pillName}"
+            android:textStyle="bold"
+            android:textColor="@color/theme_fourth"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/textSizeXL"/>
+
+        <TextView
+            android:id="@+id/txtPillTypeTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/imgPill"
+            app:layout_constraintTop_toBottomOf="@id/txtPillName"
+            android:text="Pill Type"
+            android:textColor="@color/gray"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/app_margin"
+            android:textSize="@dimen/textSizeL"/>
+        <TextView
+            android:id="@+id/txtPillType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/imgPill"
+            app:layout_constraintTop_toBottomOf="@id/txtPillTypeTitle"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            android:text="@{pill.pillType}"
+            android:textStyle="bold"
+            android:textColor="@color/theme_fourth"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/textSizeXL"/>
+
+        <TextView
+            android:id="@+id/txtPillUnitTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/imgPill"
+            app:layout_constraintTop_toBottomOf="@id/txtPillType"
+            android:text="Taking Unit"
+            android:textColor="@color/gray"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/app_margin"
+            android:textSize="@dimen/textSizeL"/>
+        <TextView
+            android:id="@+id/txtPillUnit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/imgPill"
+            app:layout_constraintTop_toBottomOf="@id/txtPillUnitTitle"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            android:text="@{pill.pillUnit}"
+            android:textStyle="bold"
+            android:textColor="@color/theme_fourth"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/textSizeXL"/>
+
+        <TextView
+            android:id="@+id/txtDoseTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            android:layout_marginTop="@dimen/app_margin"
+            app:layout_constraintTop_toBottomOf="@id/imgPill"
+            android:textSize="@dimen/textSizeXL"
+            android:text="Dose"
+            android:padding="@dimen/app_margin"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/txtDose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            android:padding="@dimen/app_margin"
+            app:layout_constraintTop_toBottomOf="@id/txtDoseTitle"
+            android:textSize="@dimen/textSizeM"
+            android:text="3 Times | At 3 AM, 9PM and 12PM"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/txtDurationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            android:layout_marginTop="@dimen/app_margin"
+            app:layout_constraintTop_toBottomOf="@id/txtDose"
+            android:textSize="@dimen/textSizeXL"
+            android:text="Duration"
+            android:padding="@dimen/app_margin"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/txtDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            android:padding="@dimen/app_margin"
+            app:layout_constraintTop_toBottomOf="@id/txtDurationTitle"
+            android:textSize="@dimen/textSizeM"
+            android:text="@{pill.continuous?@string/every_day:@string/days(pill.days)}"
+            android:textStyle="bold"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
