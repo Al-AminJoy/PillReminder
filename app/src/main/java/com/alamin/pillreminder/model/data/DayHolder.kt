@@ -5,5 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class DayHolder(
-    val dayList: List<String>,
+    var dayList: List<String>
 ):Parcelable

@@ -33,22 +33,22 @@
             app:layout_constraintTop_toTopOf="parent"
             android:text="Pill Name"
             android:textColor="@color/gray"
-            android:layout_marginHorizontal="@dimen/app_margin"
+            android:layout_marginHorizontal="@dimen/dimen16dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/app_margin"
-            android:textSize="@dimen/textSizeL"/>
+            android:textSize="@dimen/textSizeM"/>
         <TextView
             android:id="@+id/txtPillName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/imgPill"
             app:layout_constraintTop_toBottomOf="@id/txtPillNameTitle"
-            android:layout_marginHorizontal="@dimen/app_margin"
+            android:layout_marginHorizontal="@dimen/dimen16dp"
             android:text="@{pill.pillName}"
             android:textStyle="bold"
             android:textColor="@color/theme_fourth"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="@dimen/textSizeXL"/>
+            android:textSize="@dimen/textSizeL"/>
 
         <TextView
             android:id="@+id/txtPillTypeTitle"
@@ -58,22 +58,22 @@
             app:layout_constraintTop_toBottomOf="@id/txtPillName"
             android:text="Pill Type"
             android:textColor="@color/gray"
-            android:layout_marginHorizontal="@dimen/app_margin"
+            android:layout_marginHorizontal="@dimen/dimen16dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/app_margin"
-            android:textSize="@dimen/textSizeL"/>
+            android:textSize="@dimen/textSizeM"/>
         <TextView
             android:id="@+id/txtPillType"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/imgPill"
             app:layout_constraintTop_toBottomOf="@id/txtPillTypeTitle"
-            android:layout_marginHorizontal="@dimen/app_margin"
+            android:layout_marginHorizontal="@dimen/dimen16dp"
             android:text="@{pill.pillType}"
             android:textStyle="bold"
             android:textColor="@color/theme_fourth"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="@dimen/textSizeXL"/>
+            android:textSize="@dimen/textSizeL"/>
 
         <TextView
             android:id="@+id/txtPillUnitTitle"
@@ -83,22 +83,22 @@
             app:layout_constraintTop_toBottomOf="@id/txtPillType"
             android:text="Taking Unit"
             android:textColor="@color/gray"
-            android:layout_marginHorizontal="@dimen/app_margin"
+            android:layout_marginHorizontal="@dimen/dimen16dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/app_margin"
-            android:textSize="@dimen/textSizeL"/>
+            android:textSize="@dimen/textSizeM"/>
         <TextView
             android:id="@+id/txtPillUnit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/imgPill"
             app:layout_constraintTop_toBottomOf="@id/txtPillUnitTitle"
-            android:layout_marginHorizontal="@dimen/app_margin"
+            android:layout_marginHorizontal="@dimen/dimen16dp"
             android:text="@{pill.pillUnit}"
             android:textStyle="bold"
             android:textColor="@color/theme_fourth"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="@dimen/textSizeXL"/>
+            android:textSize="@dimen/textSizeL"/>
 
         <TextView
             android:id="@+id/txtDoseTitle"
@@ -108,7 +108,7 @@
             android:layout_marginHorizontal="@dimen/app_margin"
             android:layout_marginTop="@dimen/app_margin"
             app:layout_constraintTop_toBottomOf="@id/imgPill"
-            android:textSize="@dimen/textSizeXL"
+            android:textSize="@dimen/textSizeL"
             android:text="Dose"
             android:padding="@dimen/app_margin"
             android:textColor="@color/black"/>
@@ -122,7 +122,8 @@
             android:padding="@dimen/app_margin"
             app:layout_constraintTop_toBottomOf="@id/txtDoseTitle"
             android:textSize="@dimen/textSizeM"
-            android:text="3 Times | At 3 AM, 9PM and 12PM"
+            unit="@{pill.pillUnit}"
+            showDoseInDetails="@{pill.scheduleHolder.scheduleList}"
             android:textStyle="bold"
             />
 
@@ -134,7 +135,7 @@
             android:layout_marginHorizontal="@dimen/app_margin"
             android:layout_marginTop="@dimen/app_margin"
             app:layout_constraintTop_toBottomOf="@id/txtDose"
-            android:textSize="@dimen/textSizeXL"
+            android:textSize="@dimen/textSizeL"
             android:text="Duration"
             android:padding="@dimen/app_margin"
             android:textColor="@color/black"/>
@@ -148,8 +149,36 @@
             android:padding="@dimen/app_margin"
             app:layout_constraintTop_toBottomOf="@id/txtDurationTitle"
             android:textSize="@dimen/textSizeM"
-            android:text="@{pill.continuous?@string/every_day:@string/days(pill.days)}"
+            android:text="@{pill.continuous?@string/continuous:@string/days(pill.days)}"
             android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/txtScheduleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            android:layout_marginTop="@dimen/app_margin"
+            app:layout_constraintTop_toBottomOf="@id/txtDuration"
+            android:textSize="@dimen/textSizeL"
+            android:text="Schedule"
+            android:padding="@dimen/app_margin"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/txtSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/app_margin"
+            android:padding="@dimen/app_margin"
+            app:layout_constraintTop_toBottomOf="@id/txtScheduleTitle"
+            android:textSize="@dimen/textSizeM"
+            android:textStyle="bold"
+            showSchedule="@{pill.dayHolder.dayList}"
+            isEveryDay="@{pill.isEveryDay}"
+            dayInterval="@{pill.dayInterval}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
