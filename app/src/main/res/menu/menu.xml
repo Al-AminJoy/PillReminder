@@ -5,9 +5,9 @@
         <item
             android:id="@+id/homeFragment"
             android:title="Home" />
-        <item
+       <!-- <item
             android:id="@+id/profileFragment"
-            android:title="Profile" />
+            android:title="Profile" />-->
 
         <item
             android:id="@+id/pillListFragment"

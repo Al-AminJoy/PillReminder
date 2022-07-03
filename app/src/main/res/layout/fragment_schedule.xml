@@ -67,18 +67,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
+                            android:buttonTint="@color/theme_color"
                             android:text="EveryDay"/>
                         <RadioButton
                             android:id="@+id/btnSpecificDay"
                             android:onClick="@{onSpecificDayClick}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:buttonTint="@color/theme_color"
                             android:text="Specific Day of Week"/>
                         <RadioButton
                             android:id="@+id/btnEvery"
                             android:onClick="@{onEveryClick}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:buttonTint="@color/theme_color"
                             android:text="Every"/>
                         <TextView
                             android:id="@+id/txtDays"

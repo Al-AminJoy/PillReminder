@@ -1,6 +1,7 @@
 package com.alamin.pillreminder.view.dialog
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -111,6 +112,7 @@ class PillNameDialogFragment : DialogFragment() {
         }
 
         binding.setNumberOfDaysClickListener {
+            it.hideKeyboard()
             isContinuous = false;
             pillViewModel.setContinuous(isContinuous)
         }
@@ -124,15 +126,16 @@ class PillNameDialogFragment : DialogFragment() {
             }
 
         binding.setStartClickListener {
-            DatePickerDialog(
+           val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 dateSetListener,
                 calender.get(Calendar.YEAR),
                 calender.get(Calendar.MONTH),
                 calender.get(Calendar.DAY_OF_MONTH)
             )
-                .show()
-
+            datePickerDialog.show()
+            datePickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.theme_color,null))
+            datePickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.theme_color,null))
         }
 
         return binding.root;

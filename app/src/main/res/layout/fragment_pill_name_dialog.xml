@@ -61,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:buttonTint="@color/theme_color"
                 android:onClick="@{continuousClickListener}"
                 android:text="Continuous" />
 
@@ -68,6 +69,7 @@
                 android:id="@+id/btnNumberOfDays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/theme_color"
                 android:onClick="@{numberOfDaysClickListener}"
                 android:text="Number of Days" />
 

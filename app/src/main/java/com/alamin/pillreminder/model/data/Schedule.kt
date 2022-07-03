@@ -4,7 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 @Parcelize
-data class Schedule (
-    val time : String,
+data class Schedule(
+    val time: String,
+    val mealStatus: String,
     val unit: Double,
     ):Parcelable

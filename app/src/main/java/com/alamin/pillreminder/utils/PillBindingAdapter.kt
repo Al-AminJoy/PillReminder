@@ -46,7 +46,7 @@ fun TextView.showTimes(schedules: List<Schedule>){
 @BindingAdapter("showTotalUnits","unit", requireAll = true)
 fun TextView.showTotalUnits(schedules: List<Schedule>, unit: String){
     var strBuilder =StringBuilder()
-    strBuilder.append("Total ${schedules.sumOf {it.unit}} $unit")
+    strBuilder.append("Total ${schedules.sumOf {it.unit }} $unit")
     this.text = strBuilder
 }
 

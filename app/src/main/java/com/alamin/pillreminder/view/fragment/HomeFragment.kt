@@ -20,11 +20,8 @@ import com.alamin.pillreminder.view.adapter.RecentPillAdapter
 import com.alamin.pillreminder.view.adapter.TodayPillAdapter
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
-import kotlin.math.log
 
 private const val TAG = "HomeFragment"
 private const val DAY_MILLI_SEC_UNIT = 86400000
@@ -149,7 +146,7 @@ class HomeFragment : Fragment() {
                 val minute = calender.get(Calendar.MINUTE)
                 val currentTimeInMilliSec = hour*3600000 + minute*60000
                 if (pillTakingTime-currentTimeInMilliSec in 1..1800000){
-                    recentPillList.add(RecentSchedule(pill.id,pill.pillName,pill.pillType,pill.pillUnit,schedule.time,schedule.unit))
+                    recentPillList.add(RecentSchedule(pill.id,pill.pillName,pill.pillType,pill.pillUnit,schedule.mealStatus,schedule.time,schedule.unit))
                 }
             }
         }

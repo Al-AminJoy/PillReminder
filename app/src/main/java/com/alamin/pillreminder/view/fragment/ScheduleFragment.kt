@@ -3,10 +3,8 @@ package com.alamin.pillreminder.view.fragment
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,17 +23,11 @@ import com.alamin.pillreminder.model.data.DayHolder
 import com.alamin.pillreminder.model.data.Pill
 import com.alamin.pillreminder.model.data.Schedule
 import com.alamin.pillreminder.model.data.ScheduleHolder
-import com.alamin.pillreminder.utils.DataUtils
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_schedule.*
-import kotlinx.android.synthetic.main.fragment_schedule.view.*
-import java.lang.Exception
 import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 private const val TAG = "ScheduleFragment"
@@ -178,6 +170,9 @@ class ScheduleFragment : Fragment() {
             for (item in views){
                 val txtTime: AutoCompleteTextView = item.findViewById(R.id.txtTime)
                 val txtDosage: EditText = item.findViewById(R.id.txtDosages)
+                val radioGroup: RadioGroup = item.findViewById(R.id.radioGroup)
+                val btnBeforeMeal: RadioButton = item.findViewById(R.id.btnBeforeMeal)
+                val btnAfterMeal: RadioButton = item.findViewById(R.id.btnAfterMeal)
                 txtTime.error = null
                 txtDosage.error = null
 
@@ -195,7 +190,19 @@ class ScheduleFragment : Fragment() {
                     scheduleList.clear()
                     return@setOnNext
                 }
-                scheduleList.add(Schedule(time,dose.toDouble()))
+                var mealStatus = ""
+
+                val selectedId = radioGroup.checkedRadioButtonId
+
+                if (selectedId == -1){
+                    Toast.makeText(requireContext(),"Please Select Meal",Toast.LENGTH_SHORT).show()
+                    return@setOnNext
+                }else {
+                    val radioButton = radioGroup.findViewById(selectedId) as RadioButton
+                    mealStatus = radioButton.text.toString()
+                }
+
+                scheduleList.add(Schedule(time,mealStatus,dose.toDouble()))
             }
             val dayHolder = DayHolder(dayList)
             val scheduleHolder =  ScheduleHolder(scheduleList)
@@ -294,6 +301,8 @@ class ScheduleFragment : Fragment() {
             txtTime.setOnClickListener {
                 val timePicker: TimePickerDialog = TimePickerDialog(requireContext(),timePickerDialogListener,12,10,false)
                 timePicker.show()
+                timePicker.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.theme_color,null))
+                timePicker.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.theme_color,null))
             }
 
             var layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(

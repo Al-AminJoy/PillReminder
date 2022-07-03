@@ -19,7 +19,7 @@
 
    <AutoCompleteTextView
        android:id="@+id/txtTime"
-       android:layout_width="match_parent"
+       android:layout_width="250dp"
        android:layout_height="wrap_content"
        android:padding="@dimen/app_margin"
        android:textColor="@color/Ash_Gray"
@@ -31,7 +31,41 @@
        android:backgroundTint="@color/white"
        />
 
-  <LinearLayout
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_margin">
+
+        <RadioButton
+            android:id="@+id/btnBeforeMeal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Before Meal"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/theme_color"
+            android:textAllCaps="false"
+            android:buttonTint="@color/white"
+            android:textSize="@dimen/textSizeS"
+            app:rippleColor="@color/gray"/>
+
+        <RadioButton
+            android:id="@+id/btnAfterMeal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="After Meal"
+            android:checked="true"
+            android:backgroundTint="@color/theme_color"
+            android:textAllCaps="false"
+            android:buttonTint="@color/white"
+            android:textSize="@dimen/textSizeS"
+            android:textColor="@color/white"
+            app:rippleColor="@color/gray"/>
+
+    </RadioGroup>
+
+
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
@@ -41,7 +75,7 @@
       <EditText
           android:id="@+id/txtDosages"
           android:layout_width="0dp"
-          android:layout_weight=".7"
+          android:layout_weight=".5"
           android:layout_height="wrap_content"
           android:padding="@dimen/app_margin"
           android:inputType="numberDecimal"

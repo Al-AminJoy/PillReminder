@@ -85,7 +85,7 @@
                     android:textSize="@dimen/textSizeS"
                     android:padding="@dimen/dimen4dp"
                     android:layout_marginTop="@dimen/app_margin"
-                    android:text="After Meal"
+                    android:text="@{schedule.mealStatus}"
                     android:gravity="center"
                     android:background="@drawable/round_corner_fill_background"
                     android:textColor="@color/white" />
