@@ -20,6 +20,9 @@ import com.alamin.pillreminder.view.adapter.RecentPillAdapter
 import com.alamin.pillreminder.view.adapter.TodayPillAdapter
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import java.util.*
 import javax.inject.Inject
 
@@ -57,45 +60,12 @@ class HomeFragment : Fragment() {
             adapter = recentPillAdapter
         }
 
+
         pillViewModel.getAllPill().observe(requireActivity(), Observer {
-            var todayPillList = arrayListOf<Pill>()
-            for (pill in it){
-                var currentDay = 0;
-                var currentDayofWeek = 0;
-                var startDay = 0;
-                val currentTime = System.currentTimeMillis()
-                val calendar = Calendar.getInstance()
-                calendar.timeInMillis = currentTime
-                with(calendar){
-                    currentDay = get(Calendar.DAY_OF_MONTH)
-                    currentDayofWeek = get(Calendar.DAY_OF_WEEK)
+            CoroutineScope(IO).launch {
+                while (true){
+                    showData(pillViewModel.getTodayPill(it))
                 }
-
-                calendar.timeInMillis = pill.pillStartTime
-
-                with(calendar){
-                    startDay = get(Calendar.DAY_OF_MONTH)
-                }
-
-               if (currentTime >= pill.pillStartTime){
-                   if (pill.isContinuous){
-                       filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
-                   }else {
-                       val dayInMilliSec = pill.days * DAY_MILLI_SEC_UNIT
-                       val pillEndDate = dayInMilliSec+pill.pillStartTime
-                       if (currentTime <= pillEndDate){
-                           filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
-                       }
-                   }
-               }
-
-            }
-            if (todayPillList.size <= 0){
-                binding.txtToday.text = "Woo !! No Pill in Today"
-                binding.cardRecentPill.visibility = View.GONE
-            }else{
-                todayPillAdapter.setData(todayPillList)
-                setRecentPillData(todayPillList)
             }
         })
 
@@ -106,96 +76,22 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun setRecentPillData(todayPillList: ArrayList<Pill>) {
-        var recentPillList = arrayListOf<RecentSchedule>()
-        for (pill in todayPillList){
-            for (schedule in pill.scheduleHolder.scheduleList){
-                var pillTime = schedule.time.substring(0,5).split(":")
-
-                var hourInMilliSec = 0
-                var minuteInMilliSec = 0
-
-                if (schedule.time.contains("PM")){
-                    val pillHour = pillTime[0].trim().toInt()
-                    val pillMinute = pillTime[1].trim().toInt()
-                    if (pillHour == 12){
-                        hourInMilliSec = pillHour * 3600000
-                        minuteInMilliSec = pillMinute * 60000
-                    }else{
-                        hourInMilliSec = (pillHour+12) * 3600000
-                        minuteInMilliSec = pillMinute * 60000
-                    }
-
-                }else{
-                    val pillHour = pillTime[0].trim().toInt()
-                    val pillMinute = pillTime[1].trim().toInt()
-                    if (pillHour == 12){
-                        hourInMilliSec = 0 * 3600000
-                        minuteInMilliSec = pillMinute * 60000
-                    }else{
-                        hourInMilliSec =   pillHour * 3600000
-                        minuteInMilliSec = pillMinute * 60000
-                    }
-
-                }
-
-                val pillTakingTime = hourInMilliSec+minuteInMilliSec
-
-                val calender = Calendar.getInstance()
-                val hour = calender.get(Calendar.HOUR_OF_DAY)
-                val minute = calender.get(Calendar.MINUTE)
-                val currentTimeInMilliSec = hour*3600000 + minute*60000
-                if (pillTakingTime-currentTimeInMilliSec in 1..1800000){
-                    recentPillList.add(RecentSchedule(pill.id,pill.pillName,pill.pillType,pill.pillUnit,schedule.mealStatus,schedule.time,schedule.unit))
+    private suspend fun showData(todayPill: List<Pill>) {
+        withContext(Main){
+            if (todayPill.isEmpty()){
+                binding.txtToday.text = "Woo !! No Pill in Today"
+                binding.cardRecentPill.visibility = View.GONE
+            }else{
+                todayPillAdapter.setData(todayPill)
+                withContext(IO){
+                    val recentPill = pillViewModel.getRecentPillData(todayPill)
+                    withContext(Main){
+                        binding.txtRecentPill.text = if (recentPill.isEmpty()) "Woo !! No Upcoming Pill" else "Upcoming Medicine(s)"
+                        recentPillAdapter.setData(recentPill);
                 }
             }
         }
-
-        if (recentPillList.size <= 0){
-            binding.txtRecentPill.text = "Woo !! No Upcoming Pill"
-        }else{
-            recentPillAdapter.setData(recentPillList);
-        }
-    }
-
-    private fun filterPill(
-        todayPillList: ArrayList<Pill>,
-        pill: Pill,
-        currentDayofWeek: Int,
-        startDay: Int,
-        currentDay: Int
-    ) {
-        if (pill.isEveryDay){
-            todayPillList.add(pill)
-        }else if (pill.dayHolder.dayList.isNotEmpty()){
-            val currentDayName: String = dateName(currentDayofWeek);
-            for (day in pill.dayHolder.dayList){
-                if (day == currentDayName){
-                    todayPillList.add(pill)
-                    break
-                }
-            }
-
-        }else{
-            if (currentDay-startDay == 0){
-                todayPillList.add(pill)
-            }else if ((currentDay-startDay) % pill.dayInterval == 0){
-                todayPillList.add(pill)
-            }
-        }
-    }
-
-    private fun dateName(currentDayofWeek: Int): String {
-       return when(currentDayofWeek){
-            1 -> "Sunday"
-            2 -> "Monday"
-            3 -> "Tuesday"
-            4 -> "Wednesday"
-            5 -> "Thursday"
-            6 -> "Friday"
-           else -> "Saturday"
-        }
-
-    }
-
+    }}
 }
+
+

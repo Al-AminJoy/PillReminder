@@ -16,7 +16,7 @@ class PillDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //TODO: Create Table Fr Dose
+        //TODO: Create Table For Dose
         binding = FragmentPillDetailsBinding.inflate(layoutInflater)
         binding.pill = arg.pill
         return binding.root
