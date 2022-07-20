@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.activity.SplashActivity">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimation"
+            android:layout_width="@dimen/dimen128dp"
+            android:layout_height="@dimen/dimen128dp"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            android:elevation="@dimen/dimen4dp"
+            app:lottie_rawRes="@raw/medicine_pills" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lottieAnimation"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/app_margin"
+            android:textSize="@dimen/textSizeL"
+            android:text="Pill Assistant"
+            android:textColor="@color/theme_color" />
+
+    </RelativeLayout>
+</layout>

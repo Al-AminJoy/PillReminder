@@ -34,11 +34,17 @@ class PillViewModel @Inject constructor(private val pillRepository: PillReposito
         return pillRepository.getAllPill();
     }
 
-    fun getTodayPill(pill: List<Pill>): List<Pill> {
+    fun deletePill(pill: Pill){
+        viewModelScope.launch(IO){
+            pillRepository.deletePill(pill)
+        }
+    }
+
+    fun getTodayPill(pills: List<Pill>): List<Pill> {
 
         var todayPillList = arrayListOf<Pill>()
 
-            for (pill in pill){
+            for (pill in pills){
                 var currentDay = 0;
                 var currentDayofWeek = 0;
                 var startDay = 0;

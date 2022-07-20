@@ -15,4 +15,8 @@ class PillRepository @Inject constructor(private val localDatabase: LocalDatabas
     fun getAllPill(): LiveData<List<Pill>>{
         return pillDao.getPillList();
     }
+
+    suspend fun deletePill(pill: Pill){
+        pillDao.deletePill(pill);
+    }
 }

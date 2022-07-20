@@ -39,6 +39,7 @@ class HomeFragment : Fragment() {
     lateinit var todayPillAdapter: TodayPillAdapter
     private lateinit var pillViewModel: PillViewModel
     private lateinit var binding: FragmentHomeBinding;
+    private var job: Job? = null
 
 
     override fun onCreateView(
@@ -62,9 +63,11 @@ class HomeFragment : Fragment() {
 
 
         pillViewModel.getAllPill().observe(requireActivity(), Observer {
-            CoroutineScope(IO).launch {
+            job?.cancel()
+            job = CoroutineScope(IO).launch {
                 while (true){
                     showData(pillViewModel.getTodayPill(it))
+                    delay(1000*60)
                 }
             }
         })

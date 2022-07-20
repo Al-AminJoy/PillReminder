@@ -34,7 +34,6 @@ class RecentPillAdapter @Inject constructor(private val recentPillDiffUtils: Rec
     }
 
     override fun getItemCount(): Int {
-        Log.d(TAG, "getItemCount: ${pillList.size}")
        return pillList.size
     }
 

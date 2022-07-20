@@ -26,6 +26,8 @@ interface AppComponent {
 
     fun injectPillName(pillNameDialogFragment: PillNameDialogFragment)
 
+    fun injectPillDetails(pillDetailsFragment: PillDetailsFragment)
+
     fun getViewModelMap(): Map<Class<*>,ViewModel>
 
     @Component.Factory
