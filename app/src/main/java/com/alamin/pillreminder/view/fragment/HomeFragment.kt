@@ -1,5 +1,6 @@
 package com.alamin.pillreminder.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentHomeBinding
 import com.alamin.pillreminder.model.data.Pill
 import com.alamin.pillreminder.model.data.RecentSchedule
+import com.alamin.pillreminder.service.AlarmService
 import com.alamin.pillreminder.view.adapter.RecentPillAdapter
 import com.alamin.pillreminder.view.adapter.TodayPillAdapter
 import com.alamin.pillreminder.view_model.PillViewModel
@@ -25,6 +27,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 private const val TAG = "HomeFragment"
 private const val DAY_MILLI_SEC_UNIT = 86400000
@@ -40,6 +43,7 @@ class HomeFragment : Fragment() {
     private lateinit var pillViewModel: PillViewModel
     private lateinit var binding: FragmentHomeBinding;
     private var job: Job? = null
+    private var  intent: Intent? = null
 
 
     override fun onCreateView(
@@ -64,18 +68,26 @@ class HomeFragment : Fragment() {
 
         pillViewModel.getAllPill().observe(requireActivity(), Observer {
             job?.cancel()
+            intent?.let {
+                requireContext().stopService(intent)
+            }
             job = CoroutineScope(IO).launch {
                 while (true){
                     showData(pillViewModel.getTodayPill(it))
                     delay(1000*60)
                 }
             }
-        })
+            intent = Intent(requireContext(), AlarmService::class.java)
+            intent?.putParcelableArrayListExtra("EXTRA", ArrayList(it))
+            requireContext().startService(intent)
 
+
+        })
 
         binding.setFloatingClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_pillNameDialogFragment)
         }
+
         return binding.root
     }
 

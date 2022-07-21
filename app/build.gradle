@@ -8,7 +8,6 @@ plugins {
 
 android {
     compileSdk 31
-
     defaultConfig {
         applicationId "com.alamin.pillreminder"
         minSdk 26
@@ -31,6 +30,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    androidExtensions {
+        experimental = true
     }
     dataBinding{
         enabled = true
