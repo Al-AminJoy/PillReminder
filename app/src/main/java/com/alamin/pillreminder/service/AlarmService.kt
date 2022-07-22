@@ -11,59 +11,70 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import java.util.*
+
+
 private const val DAY_MILLI_SEC_UNIT = 86400000
+const val ACTION_NOTIFICATION:String = "ACTION_NOTIFICATION"
+const val PILL_REMINDER:String = "PILL_REMINDER"
+const val REMIND_TYPE:String = "REMIND_TYPE"
 
 private const val TAG = "AlarmService"
 class AlarmService : Service() {
-
     init {
         Log.d(TAG, "Service Is Running")
     }
-
+    private var data: ArrayList<Pill>? = null
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val data =  intent?.getParcelableArrayListExtra<Pill>("EXTRA")
+        data =  intent?.getParcelableArrayListExtra<Pill>("EXTRA")
         data?.let {
+            Toast.makeText(applicationContext, "Has Pill Data ", Toast.LENGTH_SHORT).show()
             CoroutineScope(IO).launch{
                 while (true){
                     getRecentPillData(getTodayPill(data))
                 }
             }
         }
+        if (data == null){
+            Toast.makeText(applicationContext, "No Pill Data ", Toast.LENGTH_SHORT).show()
+
+        }
         return START_STICKY
     }
 
 
     
-    fun getTodayPill(pills: List<Pill>): List<Pill> {
+    fun getTodayPill(pills: List<Pill>?): List<Pill> {
 
         var todayPillList = arrayListOf<Pill>()
 
-        for (pill in pills){
-            var currentDay = 0;
-            var currentDayofWeek = 0;
-            var startDay = 0;
-            val currentTime = System.currentTimeMillis()
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = currentTime
-            with(calendar){
-                currentDay = get(Calendar.DAY_OF_MONTH)
-                currentDayofWeek = get(Calendar.DAY_OF_WEEK)
-            }
+        if (pills != null) {
+            for (pill in pills){
+                var currentDay = 0;
+                var currentDayofWeek = 0;
+                var startDay = 0;
+                val currentTime = System.currentTimeMillis()
+                val calendar = Calendar.getInstance()
+                calendar.timeInMillis = currentTime
+                with(calendar){
+                    currentDay = get(Calendar.DAY_OF_MONTH)
+                    currentDayofWeek = get(Calendar.DAY_OF_WEEK)
+                }
 
-            calendar.timeInMillis = pill.pillStartTime
+                calendar.timeInMillis = pill.pillStartTime
 
-            with(calendar){
-                startDay = get(Calendar.DAY_OF_MONTH)
-            }
+                with(calendar){
+                    startDay = get(Calendar.DAY_OF_MONTH)
+                }
 
-            if (currentTime >= pill.pillStartTime){
-                if (pill.isContinuous){
-                    filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
-                }else {
-                    val dayInMilliSec = pill.days * DAY_MILLI_SEC_UNIT
-                    val pillEndDate = dayInMilliSec+pill.pillStartTime
-                    if (currentTime <= pillEndDate){
+                if (currentTime >= pill.pillStartTime){
+                    if (pill.isContinuous){
                         filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
+                    }else {
+                        val dayInMilliSec = pill.days * DAY_MILLI_SEC_UNIT
+                        val pillEndDate = dayInMilliSec+pill.pillStartTime
+                        if (currentTime <= pillEndDate){
+                            filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
+                        }
                     }
                 }
             }
@@ -100,7 +111,7 @@ class AlarmService : Service() {
     }
 
     suspend fun getRecentPillData(todayPillList: List<Pill>) {
-        var recentPill : RecentSchedule? = null
+        var hasDelay = false;
         for (pill in todayPillList){
             for (schedule in pill.scheduleHolder.scheduleList){
                 var pillTime = schedule.time.substring(0,5).split(":")
@@ -141,23 +152,30 @@ class AlarmService : Service() {
                 val currentTimeInMilliSec = hour*3600000 + minute*60000 + second
                 if (pillTakingTime-currentTimeInMilliSec == 1800000){
                     Log.d(TAG, "If ${pillTakingTime-currentTimeInMilliSec}")
-
-                       recentPill = RecentSchedule(pill.id,pill.pillName,pill.pillType,pill.pillUnit,schedule.mealStatus,schedule.time,schedule.unit)
-                       withContext(Main){
-                           Toast.makeText(applicationContext, "Pill Within 30 min", Toast.LENGTH_SHORT).show()
-                           delay(1000)
-                       }
+                    val recentPill = RecentSchedule(pill.id,pill.pillName,pill.pillType,pill.pillUnit,schedule.mealStatus,schedule.time,schedule.unit)
+                    var intent = Intent(ACTION_NOTIFICATION);
+                    intent.putExtra(PILL_REMINDER,recentPill);
+                    intent.putExtra(REMIND_TYPE,false);
+                    sendBroadcast(intent);
+                    hasDelay = true
                 }else if (pillTakingTime-currentTimeInMilliSec == 0){
                     Log.d(TAG, "Else If ${pillTakingTime-currentTimeInMilliSec}")
                     withContext(Main){
-                        Toast.makeText(applicationContext, "Pill Time", Toast.LENGTH_SHORT).show()
-                        delay(1000)
+                        Toast.makeText(applicationContext, "Immediate", Toast.LENGTH_SHORT).show()
+                        val recentPill = RecentSchedule(pill.id,pill.pillName,pill.pillType,pill.pillUnit,schedule.mealStatus,schedule.time,schedule.unit)
+                        var intent = Intent(ACTION_NOTIFICATION);
+                        intent.putExtra(PILL_REMINDER,recentPill);
+                        intent.putExtra(REMIND_TYPE,true);
+                        sendBroadcast(intent);
                     }
+                    hasDelay = true
                 }else{
+                    hasDelay = false
                     Log.d(TAG, "Else ${pillTakingTime-currentTimeInMilliSec}")
                 }
             }
         }
+        if (hasDelay) delay(1000)
         
     }
 
@@ -175,5 +193,15 @@ class AlarmService : Service() {
     }
     
     override fun onBind(intent: Intent): IBinder? = null
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val broadcastIntent = Intent()
+        broadcastIntent.action = "restartservice"
+        broadcastIntent.putParcelableArrayListExtra("PILL_DATA", data)
+        broadcastIntent.setClass(this, Starter::class.java)
+        this.sendBroadcast(broadcastIntent)
+    }
 
 }

@@ -11,6 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PillReminder"
         android:usesCleartextTraffic="true">
+
+        <receiver
+            android:name=".service.Starter"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="restartservice" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".view.activity.SplashActivity"
             android:exported="true"

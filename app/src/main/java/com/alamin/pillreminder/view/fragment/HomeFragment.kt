@@ -1,5 +1,6 @@
 package com.alamin.pillreminder.view.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import com.alamin.pillreminder.databinding.FragmentHomeBinding
 import com.alamin.pillreminder.model.data.Pill
 import com.alamin.pillreminder.model.data.RecentSchedule
 import com.alamin.pillreminder.service.AlarmService
+import com.alamin.pillreminder.utils.SetPillListener
 import com.alamin.pillreminder.view.adapter.RecentPillAdapter
 import com.alamin.pillreminder.view.adapter.TodayPillAdapter
 import com.alamin.pillreminder.view_model.PillViewModel
@@ -44,6 +46,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding;
     private var job: Job? = null
     private var  intent: Intent? = null
+    private lateinit var setPillListener:SetPillListener
 
 
     override fun onCreateView(
@@ -68,18 +71,19 @@ class HomeFragment : Fragment() {
 
         pillViewModel.getAllPill().observe(requireActivity(), Observer {
             job?.cancel()
-            intent?.let {
+            /*intent?.let {
                 requireContext().stopService(intent)
-            }
+            }*/
             job = CoroutineScope(IO).launch {
                 while (true){
                     showData(pillViewModel.getTodayPill(it))
                     delay(1000*10)
                 }
             }
-            intent = Intent(requireContext(), AlarmService::class.java)
+            setPillListener.onFindPill(it)
+           /* intent = Intent(requireContext(), AlarmService::class.java)
             intent?.putParcelableArrayListExtra("EXTRA", ArrayList(it))
-            requireContext().startService(intent)
+            requireContext().startService(intent)*/
 
 
         })
@@ -107,6 +111,15 @@ class HomeFragment : Fragment() {
             }
         }
     }}
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is SetPillListener){
+            setPillListener = context as SetPillListener
+        }
+    }
+
+
 }
 
 
