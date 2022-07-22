@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
             job = CoroutineScope(IO).launch {
                 while (true){
                     showData(pillViewModel.getTodayPill(it))
-                    delay(1000*60)
+                    delay(1000*10)
                 }
             }
             intent = Intent(requireContext(), AlarmService::class.java)
