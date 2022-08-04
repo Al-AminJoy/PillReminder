@@ -16,8 +16,6 @@ data class Pill(
     var pillType: String,
     val pillUnit: String,
     val pillStartTime: Long,
-    val isContinuous: Boolean,
-    val days: Int,
     val isEveryDay: Boolean,
     val dayHolder: @RawValue DayHolder,
     val dayInterval: Int,

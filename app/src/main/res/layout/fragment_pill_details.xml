@@ -136,39 +136,13 @@
             />
 
         <TextView
-            android:id="@+id/txtDurationTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginHorizontal="@dimen/app_margin"
-            android:layout_marginTop="@dimen/app_margin"
-            app:layout_constraintTop_toBottomOf="@id/txtDose"
-            android:textSize="@dimen/textSizeM"
-            android:text="Duration"
-            android:textStyle="bold"
-            android:padding="@dimen/app_margin"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/txtDuration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginHorizontal="@dimen/app_margin"
-            android:padding="@dimen/app_margin"
-            app:layout_constraintTop_toBottomOf="@id/txtDurationTitle"
-            android:textSize="@dimen/textSizeM"
-            android:text="@{pill.continuous?@string/continuous:@string/days(pill.days)}"
-            />
-
-        <TextView
             android:id="@+id/txtScheduleTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="@dimen/app_margin"
             android:layout_marginTop="@dimen/app_margin"
-            app:layout_constraintTop_toBottomOf="@id/txtDuration"
+            app:layout_constraintTop_toBottomOf="@id/txtDose"
             android:textSize="@dimen/textSizeM"
             android:text="Schedule"
             android:textStyle="bold"

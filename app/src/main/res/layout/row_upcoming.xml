@@ -49,19 +49,6 @@
                     android:textColor="@color/black"
                     android:gravity="center"/>
 
-                <TextView
-                    android:id="@+id/txtPillDays"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSizeS"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txtPillName"
-                    android:layout_marginTop="@dimen/app_margin"
-                    android:text="@{pill.continuous?@string/every_day:@string/days(pill.days)}"
-                    android:textColor="@color/black"
-                    android:gravity="center"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

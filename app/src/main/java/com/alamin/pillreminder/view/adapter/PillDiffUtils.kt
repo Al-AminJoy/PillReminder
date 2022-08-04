@@ -33,8 +33,6 @@ class PillDiffUtils @Inject constructor() :
             oldList[oldItemPosition].pillName != newList[newItemPosition].pillName ->false
             oldList[oldItemPosition].pillUnit != newList[newItemPosition].pillUnit ->false
             oldList[oldItemPosition].pillStartTime != newList[newItemPosition].pillStartTime ->false
-            oldList[oldItemPosition].isContinuous != newList[newItemPosition].isContinuous ->false
-            oldList[oldItemPosition].days != newList[newItemPosition].days ->false
             oldList[oldItemPosition].isEveryDay != newList[newItemPosition].isEveryDay ->false
             oldList[oldItemPosition].dayHolder != newList[newItemPosition].dayHolder ->false
             oldList[oldItemPosition].dayInterval != newList[newItemPosition].dayInterval ->false

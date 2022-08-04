@@ -60,12 +60,6 @@
         <argument android:name="frequency"
             app:argType="string"/>
 
-        <argument android:name="days"
-            app:argType="integer" />
-
-        <argument android:name="continuous"
-            app:argType="boolean"/>
-
         <argument android:name="startDay"
             app:argType="string"/>
 

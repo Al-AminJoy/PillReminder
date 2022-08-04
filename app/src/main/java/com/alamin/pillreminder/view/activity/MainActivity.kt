@@ -24,26 +24,18 @@ import com.alamin.pillreminder.model.data.Pill
 import com.alamin.pillreminder.model.data.RecentSchedule
 import com.alamin.pillreminder.utils.SetPillListener
 import android.widget.Toast
-import com.alamin.pillreminder.service.*
 import kotlinx.android.synthetic.main.content_main.view.*
 
 
 private const val TAG = "MainActivity"
 const val NOTIFICATION_CHANNEL:String = "NOTIFICATION_CHANNEL"
-class MainActivity : AppCompatActivity(), SetPillListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private var pill: Pill? = null
     private var message: RecentSchedule? =null
     private var isImmediate: Boolean? = false
-    private var pillList:List<Pill>? = null
 
-    private var  intent: Intent? = null
 
-    override fun onStart() {
-        super.onStart()
-        registerReceiver(broadcastReceiver, IntentFilter(ACTION_NOTIFICATION))
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,42 +93,4 @@ class MainActivity : AppCompatActivity(), SetPillListener {
         return mBuilder.build()
     }
 
-    private val broadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(p0: Context?, p1: Intent?) {
-            message = p1?.getParcelableExtra(PILL_REMINDER)
-            isImmediate = p1?.getBooleanExtra(REMIND_TYPE,false)
-            createNotificationChannel()
-        }
-    }
-
-
-
-    override fun onDestroy() {
-
-        intent?.let {
-            stopService(intent)
-        }
-
-        if (pillList == null){
-            Toast.makeText(applicationContext, "Null from Activity", Toast.LENGTH_SHORT).show()
-
-        }
-        var broadcastIntent =  Intent()
-        broadcastIntent.action = "restartservice"
-        broadcastIntent.putParcelableArrayListExtra("PILL_DATA", ArrayList(pillList))
-        broadcastIntent.setClass(this, Starter::class.java)
-        this.sendBroadcast(broadcastIntent)
-        super.onDestroy()
-    }
-
-
-    override fun onFindPill(pillList: List<Pill>) {
-        this.pillList = pillList
-        intent?.let {
-            stopService(intent)
-        }
-        intent = Intent(this, AlarmService::class.java)
-        intent?.putParcelableArrayListExtra("EXTRA", ArrayList(pillList))
-        startService(intent)
-    }
 }

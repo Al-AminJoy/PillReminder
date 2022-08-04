@@ -3,7 +3,6 @@ package com.alamin.pillreminder.view.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +16,6 @@ import com.alamin.pillreminder.PillApplication
 import com.alamin.pillreminder.R
 import com.alamin.pillreminder.databinding.FragmentHomeBinding
 import com.alamin.pillreminder.model.data.Pill
-import com.alamin.pillreminder.model.data.RecentSchedule
-import com.alamin.pillreminder.service.AlarmService
-import com.alamin.pillreminder.utils.SetPillListener
 import com.alamin.pillreminder.view.adapter.RecentPillAdapter
 import com.alamin.pillreminder.view.adapter.TodayPillAdapter
 import com.alamin.pillreminder.view_model.PillViewModel
@@ -27,12 +23,9 @@ import com.alamin.pillreminder.view_model.ViewModelFactory
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 private const val TAG = "HomeFragment"
-private const val DAY_MILLI_SEC_UNIT = 86400000
 
 class HomeFragment : Fragment() {
 
@@ -45,8 +38,6 @@ class HomeFragment : Fragment() {
     private lateinit var pillViewModel: PillViewModel
     private lateinit var binding: FragmentHomeBinding;
     private var job: Job? = null
-    private var  intent: Intent? = null
-    private lateinit var setPillListener:SetPillListener
 
 
     override fun onCreateView(
@@ -71,21 +62,12 @@ class HomeFragment : Fragment() {
 
         pillViewModel.getAllPill().observe(requireActivity(), Observer {
             job?.cancel()
-            /*intent?.let {
-                requireContext().stopService(intent)
-            }*/
             job = CoroutineScope(IO).launch {
                 while (true){
                     showData(pillViewModel.getTodayPill(it))
                     delay(1000*10)
                 }
             }
-            setPillListener.onFindPill(it)
-           /* intent = Intent(requireContext(), AlarmService::class.java)
-            intent?.putParcelableArrayListExtra("EXTRA", ArrayList(it))
-            requireContext().startService(intent)*/
-
-
         })
 
         binding.setFloatingClickListener {
@@ -111,14 +93,6 @@ class HomeFragment : Fragment() {
             }
         }
     }}
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is SetPillListener){
-            setPillListener = context as SetPillListener
-        }
-    }
-
 
 }
 

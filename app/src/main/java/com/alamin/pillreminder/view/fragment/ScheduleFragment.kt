@@ -216,10 +216,10 @@ class ScheduleFragment : Fragment() {
             }
 
             if (isEvery){
-                insertPill(arg.name, arg.pillType, arg.unit,startTime, arg.continuous, arg.days, isEveryDay, dayHolder, every, scheduleHolder)
+                insertPill(arg.name, arg.pillType, arg.unit,startTime, isEveryDay, dayHolder, every, scheduleHolder)
             }else {
                 every = 0
-                insertPill(arg.name, arg.pillType, arg.unit, startTime, arg.continuous, arg.days, isEveryDay, dayHolder, every, scheduleHolder)
+                insertPill(arg.name, arg.pillType, arg.unit, startTime, isEveryDay, dayHolder, every, scheduleHolder)
             }
 
         }
@@ -233,14 +233,12 @@ class ScheduleFragment : Fragment() {
         type: String,
         unit: String,
         startDay: Long,
-        continuous: Boolean,
-        days: Int,
         everyDay: Boolean,
         dayHolder: DayHolder,
         every: Int,
         scheduleHolder: ScheduleHolder
     ) {
-        val pill = Pill(0,name,type,unit,startDay,continuous,days,everyDay,dayHolder,every,scheduleHolder)
+        val pill = Pill(0,name,type,unit,startDay,everyDay,dayHolder,every,scheduleHolder)
         pillViewModel.insertPill(pill)
         findNavController().navigate(R.id.action_scheduleFragment_to_homeFragment)
     }

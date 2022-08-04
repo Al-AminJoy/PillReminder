@@ -63,15 +63,7 @@ class PillViewModel @Inject constructor(private val pillRepository: PillReposito
                 }
 
                 if (currentTime >= pill.pillStartTime){
-                    if (pill.isContinuous){
-                        filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
-                    }else {
-                        val dayInMilliSec = pill.days * DAY_MILLI_SEC_UNIT
-                        val pillEndDate = dayInMilliSec+pill.pillStartTime
-                        if (currentTime <= pillEndDate){
-                            filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
-                        }
-                    }
+                      filterPill(todayPillList,pill,currentDayofWeek,startDay,currentDay)
                 }
             }
         return todayPillList

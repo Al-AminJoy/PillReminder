@@ -32,8 +32,6 @@ class PillNameDialogFragment : DialogFragment() {
     private lateinit var pillViewModel: PillViewModel;
 
     private lateinit var binding: FragmentPillNameDialogBinding
-    private var isContinuous: Boolean = true;
-    private var days = 0;
 
     private var calender: Calendar = Calendar.getInstance();
 
@@ -62,7 +60,6 @@ class PillNameDialogFragment : DialogFragment() {
         component.injectPillName(this)
         pillViewModel =
             ViewModelProvider(this, pillViewModelFactory).get(PillViewModel::class.java);
-        pillViewModel.setContinuous(isContinuous)
         binding.pillViewModel = pillViewModel
         binding.lifecycleOwner = this;
 
@@ -76,18 +73,8 @@ class PillNameDialogFragment : DialogFragment() {
             val frequency = binding.txtTakingTime.text.toString()
             val startDate = binding.txtStartDate.text.toString()
             if (pillName.isNotEmpty() && pillUnit.isNotEmpty() && frequency.isNotEmpty() && startDate.isNotEmpty() && pillType.isNotEmpty()) {
-                if (isContinuous) {
-                    days = 0;
-                    goNext(pillName, pillUnit, frequency, days, isContinuous, startDate, pillType)
-                } else {
-                    if (binding.txtDays.text.toString().isNotEmpty()) {
-                        days = binding.txtDays.text.toString().toInt()
-                        goNext(pillName, pillUnit, frequency, days, isContinuous, startDate, pillType)
-                    } else {
-                        Toast.makeText(requireContext(), "Please Set Day", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
+                goNext(pillName, pillUnit, frequency, startDate, pillType)
+
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -104,17 +91,6 @@ class PillNameDialogFragment : DialogFragment() {
         binding.setUnitClickListener {
             it.hideKeyboard()
             binding.txtUnit.showDropDown()
-        }
-
-        binding.setContinuousClickListener {
-            isContinuous = true
-            pillViewModel.setContinuous(isContinuous)
-        }
-
-        binding.setNumberOfDaysClickListener {
-            it.hideKeyboard()
-            isContinuous = false;
-            pillViewModel.setContinuous(isContinuous)
         }
 
         val dateSetListener =
@@ -158,8 +134,6 @@ class PillNameDialogFragment : DialogFragment() {
         pillName: String,
         pillUnit: String,
         frequency: String,
-        days: Int,
-        continuous: Boolean,
         startDate: String,
         pillType: String
     ) {
@@ -168,8 +142,6 @@ class PillNameDialogFragment : DialogFragment() {
                 pillName,
                 pillUnit,
                 frequency,
-                days,
-                continuous,
                 startDate,
                 pillType
             )
