@@ -20,8 +20,6 @@ interface AppComponent {
 
     fun injectPillList(pillListFragment: PillListFragment)
 
-    fun injectRemind(reminderFragment: ReminderFragment)
-
     fun injectSchedule(scheduleFragment: ScheduleFragment)
 
     fun injectPillName(pillNameDialogFragment: PillNameDialogFragment)

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alamin.pillreminder">
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <application
         android:name=".PillApplication"
         android:allowBackup="true"
@@ -28,6 +29,7 @@
             android:name=".view.activity.MainActivity"
             android:exported="true"/>
 
+        <receiver android:name=".receiver.AlarmReceiver" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -23,6 +23,7 @@ import com.alamin.pillreminder.model.data.DayHolder
 import com.alamin.pillreminder.model.data.Pill
 import com.alamin.pillreminder.model.data.Schedule
 import com.alamin.pillreminder.model.data.ScheduleHolder
+import com.alamin.pillreminder.service.AlarmService
 import com.alamin.pillreminder.view_model.PillViewModel
 import com.alamin.pillreminder.view_model.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_schedule.*
@@ -34,7 +35,9 @@ private const val TAG = "ScheduleFragment"
 class ScheduleFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory;
+    lateinit var viewModelFactory: ViewModelFactory
+
+    lateinit var alarmService: AlarmService;
 
     private lateinit var pillViewModel: PillViewModel;
 
@@ -56,7 +59,7 @@ class ScheduleFragment : Fragment() {
         val component = (requireActivity().applicationContext as PillApplication).appComponent
         component.injectSchedule(this);
         pillViewModel = ViewModelProvider(this,viewModelFactory)[PillViewModel::class.java];
-
+        alarmService = AlarmService(requireContext())
         dayList = arrayListOf()
         scheduleList = arrayListOf()
         showInfo()
@@ -204,6 +207,9 @@ class ScheduleFragment : Fragment() {
 
                 scheduleList.add(Schedule(time,mealStatus,dose.toDouble()))
             }
+
+
+
             val dayHolder = DayHolder(dayList)
             val scheduleHolder =  ScheduleHolder(scheduleList)
             val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
@@ -214,6 +220,8 @@ class ScheduleFragment : Fragment() {
             }catch (e: Exception){
 
             }
+
+
 
             if (isEvery){
                 insertPill(arg.name, arg.pillType, arg.unit,startTime, isEveryDay, dayHolder, every, scheduleHolder)
@@ -240,6 +248,46 @@ class ScheduleFragment : Fragment() {
     ) {
         val pill = Pill(0,name,type,unit,startDay,everyDay,dayHolder,every,scheduleHolder)
         pillViewModel.insertPill(pill)
+        for (schedule in scheduleHolder.scheduleList){
+            var pillTime = schedule.time.substring(0,5).split(":")
+
+            var hourInMilliSec = 0L
+            var minuteInMilliSec = 0L
+
+            if (schedule.time.contains("PM")){
+                val pillHour = pillTime[0].trim().toInt()
+                val pillMinute = pillTime[1].trim().toInt()
+                if (pillHour == 12){
+                    hourInMilliSec = pillHour * 3600000L
+                    minuteInMilliSec = pillMinute * 60000L
+                }else{
+                    hourInMilliSec = (pillHour+12) * 3600000L
+                    minuteInMilliSec = pillMinute * 60000L
+                }
+
+            }else{
+                val pillHour = pillTime[0].trim().toInt()
+                val pillMinute = pillTime[1].trim().toInt()
+                if (pillHour == 12){
+                    hourInMilliSec = 0 * 3600000
+                    minuteInMilliSec = pillMinute * 60000L
+                }else{
+                    hourInMilliSec =   pillHour * 3600000L
+                    minuteInMilliSec = pillMinute * 60000L
+                }
+
+            }
+
+            val timeInMillis = startDay+hourInMilliSec+minuteInMilliSec
+
+            if (everyDay){
+                alarmService.setRepetitiveAlarm(timeInMillis,1,pill)
+            }else if (every != 0){
+                alarmService.setRepetitiveAlarm(timeInMillis,every,pill)
+            }else{
+                alarmService.setRepetitiveAlarm(timeInMillis,null,pill)
+            }
+        }
         findNavController().navigate(R.id.action_scheduleFragment_to_homeFragment)
     }
 

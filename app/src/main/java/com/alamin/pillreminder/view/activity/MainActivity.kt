@@ -32,9 +32,6 @@ const val NOTIFICATION_CHANNEL:String = "NOTIFICATION_CHANNEL"
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private var message: RecentSchedule? =null
-    private var isImmediate: Boolean? = false
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.includeContent.toolbar)
+
+        createNotificationChannel()
 
         val navController = findNavController(R.id.fragment)
         appBarConfiguration = AppBarConfiguration(
@@ -61,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         return super.onSupportNavigateUp() || navController.navigateUp(appBarConfiguration)
     }
 
+
     private fun createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -73,24 +73,6 @@ class MainActivity : AppCompatActivity() {
             val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
         }
-        val notification = getForegroundServiceNotificationBuilder()
-        val notificationManager = NotificationManagerCompat.from(this)
-        notificationManager.notify(999,notification)
-    }
-
-    private fun getForegroundServiceNotificationBuilder(): Notification {
-        val messageTitle = if (isImmediate == true) "Medicine Reminder ${message?.pillName}" else "Upcoming Medicine ${message?.pillName}"
-        val messageText = "${message?.unit} ${message?.pillUnit}"
-        val mBuilder: NotificationCompat.Builder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL)
-            .setSmallIcon(R.drawable.capsule)
-            .setContentTitle(messageTitle)
-            .setContentText(messageText)
-            .setAutoCancel(true)
-            .setOngoing(true)
-        val resultIntent = Intent(applicationContext, MainActivity::class.java)
-        val resultPendingIntent = PendingIntent.getActivity(applicationContext, 0, resultIntent, 0)
-        mBuilder.setContentIntent(resultPendingIntent)
-        return mBuilder.build()
     }
 
 }
