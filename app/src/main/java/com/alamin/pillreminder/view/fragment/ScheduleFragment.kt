@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -345,7 +346,7 @@ class ScheduleFragment : Fragment() {
                 }
 
             txtTime.setOnClickListener {
-                val timePicker: TimePickerDialog = TimePickerDialog(requireContext(),timePickerDialogListener,12,10,false)
+                val timePicker = TimePickerDialog(requireContext(),timePickerDialogListener,12,10,false)
                 timePicker.show()
                 timePicker.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.theme_color,null))
                 timePicker.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.theme_color,null))

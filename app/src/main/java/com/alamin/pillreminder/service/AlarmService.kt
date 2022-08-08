@@ -5,11 +5,14 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import com.alamin.pillreminder.model.data.Pill
 import com.alamin.pillreminder.receiver.AlarmReceiver
 import com.alamin.pillreminder.utils.Constants
 import com.alamin.pillreminder.utils.RandomIntUtil
+import com.google.gson.Gson
 
+private const val TAG = "AlarmService"
 class AlarmService (private val context: Context)   {
 
     private val alarmManager: AlarmManager ? = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -25,6 +28,7 @@ class AlarmService (private val context: Context)   {
     }
 
     fun setRepetitiveAlarm(timeInMillis: Long,interval: Int?, pill: Pill?){
+        val pillAsByteArray = Gson().toJson(pill)
         setAlarm(timeInMillis,
             getPendingIntent(
                 getIntent().apply {
@@ -34,7 +38,7 @@ class AlarmService (private val context: Context)   {
                         putExtra(Constants.SET_WEEKDAY,true)
                     }
                     putExtra(Constants.SET_INTERVAL,interval)
-                    putExtra(Constants.SET_PILL,pill)
+                    putExtra(Constants.SET_PILL,pillAsByteArray)
                 }
             ))
     }
